@@ -1,0 +1,1244 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-11 13:47+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\api\authentication\serializers\renter.py:19
+msgid "Опционально. Код верификации из смс"
+msgstr "Optional. Verification code from SMS"
+
+#: .\api\authentication\serializers\renter.py:24
+msgid "Для android. Хэш приложения"
+msgstr ""
+
+#: .\api\authentication\views\login.py:36
+msgid "Неверный номер телефона или код подтверждения"
+msgstr "Invalid phone number or confirmation code"
+
+#: .\api\authentication\views\login.py:48
+#: .\api\authentication\views\login_register.py:70
+msgid "Смс код был выслан на Ваш номер телефона"
+msgstr "The SMS code has been sent to your phone number"
+
+#: .\api\authentication\views\login.py:52
+#: .\api\authentication\views\login_register.py:76
+msgid "Неверный код"
+msgstr "Invalid code"
+
+#: .\api\authentication\views\login.py:82
+msgid "Неверное имя пользователя или пароль"
+msgstr "Invalid username or password"
+
+#: .\api\authentication\views\login_refresh.py:36
+msgid "Неверный или просроченный токен"
+msgstr "Invalid or expired token"
+
+#: .\api\bookings\admin\admin.py:105
+#, python-format
+msgid "Статус обновлён: %(old)s → %(new)s"
+msgstr "Status updated: %(old)s → %(new)s"
+
+#: .\api\bookings\admin\admin.py:133 .\api\users\models\user.py:56
+msgid "Имя пользователя"
+msgstr "Username"
+
+#: .\api\bookings\admin\admin.py:141
+msgid "Машина"
+msgstr "Car"
+
+#: .\api\bookings\admin\admin.py:145
+msgid "Арендная компания"
+msgstr "Rental company"
+
+#: .\api\bookings\admin\admin.py:148
+msgid "Принадлежит платформе"
+msgstr "Belongs to the platform"
+
+#: .\api\bookings\admin\admin.py:151
+msgid "Даты бронирований"
+msgstr "Booking dates"
+
+#: .\api\bookings\admin\admin.py:155
+msgid "Способ доставки"
+msgstr "Delivery method"
+
+#: .\api\bookings\admin\admin.py:158
+#, python-format
+msgid "Доставить на: [%(lat)s, %(lon)s]"
+msgstr "Deliver to: [%(lat)s, %(lon)s]"
+
+#: .\api\bookings\admin\admin.py:162 .\common\constants.py:12
+msgid "Самовывоз"
+msgstr "Self-pickup"
+
+#: .\api\bookings\admin\admin.py:164
+msgid "Тип платежа"
+msgstr "Payment type"
+
+#: .\api\bookings\admin\admin.py:171
+msgid "Итоговая цена"
+msgstr "Total price"
+
+#: .\api\bookings\admin\admin.py:175
+msgid "Депозит"
+msgstr "Deposit"
+
+#: .\api\bookings\admin\admin.py:179
+msgid "Залог (статус)"
+msgstr "Deposit (status)"
+
+#: .\api\bookings\admin\admin.py:187
+msgid "Удержан"
+msgstr ""
+
+#: .\api\bookings\admin\admin.py:189
+msgid "Будет возвращён"
+msgstr "Will be returned"
+
+#: .\api\bookings\admin\admin.py:194 .\api\passports\models\models.py:14
+#: .\api\passports\models\models.py:63
+msgid "Паспорт"
+msgstr "Passport"
+
+#: .\api\bookings\admin\admin.py:203
+msgid "Водительское удостоверение"
+msgstr "Driver's license"
+
+#: .\api\bookings\admin\admin.py:252
+msgid "ID бронирования"
+msgstr "Booking ID"
+
+#: .\api\bookings\admin\admin.py:256
+msgid "Телефон пользователя"
+msgstr "User phone number"
+
+#: .\api\bookings\admin\admin.py:260
+msgid "Автомобиль"
+msgstr "Vehicle"
+
+#: .\api\bookings\admin\admin.py:264 .\api\users\models\roles.py:5
+msgid "Администратор"
+msgstr "Administrator"
+
+#: .\api\bookings\models\booking.py:20
+msgid "заказ"
+msgstr "order"
+
+#: .\api\bookings\models\booking.py:21
+msgid "Заказы"
+msgstr "Orders"
+
+#: .\api\bookings\models\booking.py:25
+msgid "Заказ получен, ожидает подтверждения"
+msgstr "Order received, awaiting confirmation"
+
+#: .\api\bookings\models\booking.py:26
+msgid "Подготовка к передаче"
+msgstr "Preparing for handover"
+
+#: .\api\bookings\models\booking.py:27
+msgid "В пути, если выбрана доставка"
+msgstr "On the way, if delivery is selected"
+
+#: .\api\bookings\models\booking.py:28
+msgid "Автомобиль у пользователя"
+msgstr "Car is with the user"
+
+#: .\api\bookings\models\booking.py:29
+msgid "Аренда завершена"
+msgstr "Rental completed"
+
+#: .\api\bookings\models\booking.py:30
+msgid "Отменено пользователем или администратором"
+msgstr "Cancelled by user or administrator"
+
+#: .\api\bookings\models\booking.py:53
+msgid "Способ получения"
+msgstr "Pickup method"
+
+#: .\api\bookings\models\booking.py:63
+msgid "Забрать машину у клиента"
+msgstr "Pick up the car from the client"
+
+#: .\api\bookings\models\booking.py:65
+msgid "Если True — клиент хочет, чтобы мы сами забрали машину по адресу"
+msgstr "If True — the client wants us to pick up the car from the address"
+
+#: .\api\bookings\models\booking.py:72
+msgid "Адрес возврата машины клиентом"
+msgstr "Return address provided by the client"
+
+#: .\api\bookings\models\booking.py:77
+msgid "Водитель запрошен"
+msgstr "Driver requested"
+
+#: .\api\bookings\models\booking.py:80
+msgid "Верификация личности"
+msgstr "Identity verification"
+
+#: .\api\bookings\models\booking.py:83
+msgid "Заметки администратора"
+msgstr "Admin notes"
+
+#: .\api\bookings\models\booking.py:110
+msgid "Стоимость забора авто с адреса клиента"
+msgstr ""
+
+#: .\api\bookings\models\booking.py:137 .\api\payments\admin.py:49
+msgid "Метод оплаты"
+msgstr "Payment method"
+
+#: .\api\bookings\models\booking.py:138
+msgid "Выбранный клиентом метод оплаты: карта или наличные"
+msgstr "Payment method chosen by the client: card or cash"
+
+#: .\api\bookings\models\deposits.py:15 .\api\referral\models\model.py:20
+#: .\api\users\models\roles.py:4 .\api\validate_uz\models.py:11
+msgid "Пользователь"
+msgstr "User"
+
+#: .\api\bookings\models\deposits.py:21
+msgid "Сумма депозита"
+msgstr "Deposit amount"
+
+#: .\api\bookings\models\deposits.py:26
+msgid "депозит"
+msgstr "deposit"
+
+#: .\api\bookings\models\deposits.py:27
+msgid "Депозиты"
+msgstr "Deposits"
+
+#: .\api\bookings\models\status_log.py:14
+msgid "В ожидании"
+msgstr "Pending"
+
+#: .\api\bookings\models\status_log.py:15
+msgid "В процессе"
+msgstr "In progress"
+
+#: .\api\bookings\models\status_log.py:16
+msgid "На доставке"
+msgstr "Out for delivery"
+
+#: .\api\bookings\models\status_log.py:17
+msgid "Принято"
+msgstr "Accepted"
+
+#: .\api\bookings\models\status_log.py:18
+msgid "Завершено"
+msgstr "Completed"
+
+#: .\api\bookings\models\status_log.py:19
+msgid "Отменено"
+msgstr "Cancelled"
+
+#: .\api\bookings\models\status_log.py:33
+msgid "статус бронирования"
+msgstr "booking status"
+
+#: .\api\bookings\models\status_log.py:34
+msgid "Статусы бронирований"
+msgstr "Booking statuses"
+
+#: .\api\bookings\serializers\booking.py:20
+msgid "Детализированная сводка по стоимости аренды"
+msgstr "Detailed breakdown of rental cost"
+
+#: .\api\bookings\serializers\booking.py:68
+msgid "Дата начала должна быть раньше даты окончания."
+msgstr "Start date must be before end date."
+
+#: .\api\bookings\serializers\booking.py:73
+msgid "Нельзя бронировать в прошлом."
+msgstr "Cannot book in the past."
+
+#: .\api\bookings\serializers\booking.py:79
+msgid "Это авто нельзя забрать самостоятельно."
+msgstr "This car cannot be self-picked up."
+
+#: .\api\bookings\serializers\booking.py:89
+msgid "Координаты доставки обязательны."
+msgstr "Delivery coordinates are required."
+
+#: .\api\bookings\serializers\booking.py:98
+msgid "Укажите адрес, если хотите, чтобы мы забрали машину."
+msgstr "Provide an address if you want us to pick up the car."
+
+#: .\api\bookings\views\bookings_calculate.py:21
+msgid "[renter] Получить детализацию стоимости заказа"
+msgstr "[renter] Get detailed cost breakdown of the order"
+
+#: .\api\bookings\views\bookings_create.py:27
+msgid "[renter] Забронировать машину"
+msgstr "[renter] Book a car"
+
+#: .\api\bookings\views\bookings_update.py:18
+msgid "[admin] Обновить статус"
+msgstr "[admin] Update status"
+
+#: .\api\bookings\views\bookings_update.py:38
+msgid "Booking не найден"
+msgstr "Booking not found"
+
+#: .\api\cars\admin.py:25
+msgid "Pickup Address"
+msgstr "Pickup Address"
+
+#: .\api\cars\admin.py:39
+msgid "Нельзя добавить больше 4 изображений к одному автомобилю."
+msgstr "Cannot add more than 4 images to one vehicle."
+
+#: .\api\cars\admin.py:56
+msgid "Превью"
+msgstr "Preview"
+
+#: .\api\cars\forms.py:23 .\api\cars\models\cars.py:54
+msgid "Год выпуска"
+msgstr "Year of manufacture"
+
+#: .\api\cars\forms.py:54
+msgid "Время 'доступно с' должно быть раньше 'доступно до'."
+msgstr "'Available from' time must be earlier than 'available until'."
+
+#: .\api\cars\models\carfleet.py:12
+msgid "автопарк"
+msgstr "car fleet"
+
+#: .\api\cars\models\carfleet.py:13
+msgid "Автопарки"
+msgstr "Car fleets"
+
+#: .\api\cars\models\carfleet.py:15
+msgid "Название компании"
+msgstr "Company name"
+
+#: .\api\cars\models\carfleet.py:18
+msgid "Номер телефона (+998)"
+msgstr "Phone number (+998)"
+
+#: .\api\cars\models\carfleet.py:24
+msgid "Пункт выдачи (location)"
+msgstr "Pickup location"
+
+#: .\api\cars\models\carfleet.py:28
+#, python-format
+msgid "Автопарк: %(name)s"
+msgstr "Fleet: %(name)s"
+
+#: .\api\cars\models\cars.py:20
+msgid "машину"
+msgstr "car"
+
+#: .\api\cars\models\cars.py:21
+msgid "Машины"
+msgstr "Cars"
+
+#: .\api\cars\models\cars.py:28
+msgid "Автопарк"
+msgstr "Fleet"
+
+#: .\api\cars\models\cars.py:34
+msgid "Класс авто (стандарт/премиум)"
+msgstr "Car class (standard/premium)"
+
+#: .\api\cars\models\cars.py:37
+msgid "Марка"
+msgstr "Brand"
+
+#: .\api\cars\models\cars.py:38
+msgid "Модель"
+msgstr "Model"
+
+#: .\api\cars\models\cars.py:43
+msgid "Цена за час"
+msgstr "Price per hour"
+
+#: .\api\cars\models\cars.py:45
+msgid "Автоматическая коробка"
+msgstr "Automatic transmission"
+
+#: .\api\cars\models\cars.py:50
+msgid "Тип двигателя"
+msgstr "Engine type"
+
+#: .\api\cars\models\cars.py:57
+msgid "Регистрационный номер"
+msgstr "License plate"
+
+#: .\api\cars\models\cars.py:60
+msgid "Цвет"
+msgstr "Color"
+
+#: .\api\cars\models\cars.py:63
+msgid "Минимальный возраст водителя"
+msgstr "Minimum driver age"
+
+#: .\api\cars\models\cars.py:66
+msgid "Добавлено"
+msgstr "Created"
+
+#: .\api\cars\models\cars.py:68
+msgid "Изменено"
+msgstr "Updated"
+
+#: .\api\cars\models\cars.py:71
+msgid "Android Auto"
+msgstr "Android Auto"
+
+#: .\api\cars\models\cars.py:74
+msgid "Apple CarPlay"
+msgstr "Apple CarPlay"
+
+#: .\api\cars\models\cars.py:77
+msgid "Детское кресло"
+msgstr "Child seat"
+
+#: .\api\cars\models\cars.py:79
+msgid "Bluetooth"
+msgstr "Bluetooth"
+
+#: .\api\cars\models\cars.py:80
+msgid "AUX"
+msgstr "AUX"
+
+#: .\api\cars\models\cars.py:83 .\api\promo\models\coupon.py:15
+msgid "Описание"
+msgstr "Description"
+
+#: .\api\cars\models\cars.py:88
+msgid "Тип кузова (sedan, suv и т.д.)"
+msgstr "Body type (sedan, SUV, etc.)"
+
+#: .\api\cars\models\cars.py:91
+msgid "Поддерживает самовывоз"
+msgstr "Supports pickup"
+
+#: .\api\cars\models\cars.py:94
+msgid "Количество посадочных мест"
+msgstr "Number of seats"
+
+#: .\api\cars\models\cars.py:96
+msgid "Имеет кондиционер"
+msgstr "Has air conditioning"
+
+#: .\api\cars\models\cars.py:126
+#, python-format
+msgid "Автомобиль \"%(car)s\" в избранном у %(user)s"
+msgstr "Car \"%(car)s\" is in favorites of %(user)s"
+
+#: .\api\cars\serializers\serializers.py:78
+msgid "Можно загрузить максимум 4 изображения."
+msgstr "You can upload a maximum of 4 images."
+
+#: .\api\cars\serializers\serializers.py:86
+#, fuzzy
+#| msgid "Можно загрузить максимум 4 изображения."
+msgid "Файл не является допустимым изображением."
+msgstr "You can upload a maximum of 4 images."
+
+#: .\api\cars\serializers\serializers.py:137
+msgid "Это поле обязательно и должно быть True или False."
+msgstr "This field is required and must be True or False."
+
+#: .\api\cars\serializers\serializers.py:146
+msgid "Список содержит невалидные UUID."
+msgstr ""
+
+#: .\api\cars\services\favorites_service.py:14
+#, fuzzy
+#| msgid "Автомобиль \"%(car)s\" в избранном у %(user)s"
+msgid "Авто уже в избранном."
+msgstr "Car \"%(car)s\" is in favorites of %(user)s"
+
+#: .\api\cars\services\favorites_service.py:16
+#, fuzzy
+#| msgid "Автомобиль \"%(car)s\" в избранном у %(user)s"
+msgid "Авто добавлено в избранное."
+msgstr "Car \"%(car)s\" is in favorites of %(user)s"
+
+#: .\api\cars\services\favorites_service.py:25
+msgid "Авто удалено из избранного."
+msgstr "The car has been removed from favorites"
+
+#: .\api\cars\services\favorites_service.py:27
+#, fuzzy
+#| msgid "Booking не найден"
+msgid "Авто не найдено."
+msgstr "Car not found."
+
+#: .\api\cars\validators.py:12
+msgid "Год выпуска не может быть в будущем."
+msgstr "Year of manufacture cannot be in the future."
+
+#: .\api\cars\validators.py:25
+msgid "Номерной знак должен быть в формате: 01 N 951 LA"
+msgstr "The license plate must be in the format: 01 N 951 LA"
+
+#: .\api\cars\validators.py:42
+msgid "Введите номер в формате +998901234567 или 901234567"
+msgstr "Enter the number in the format +998901234567 or 901234567"
+
+#: .\api\cars\validators.py:47
+#, fuzzy
+#| msgid "Номер телефона неверного формата. Он должен начинаться с +998"
+msgid "Номер телефона должен быть в формате +998XXXXXXXXX"
+msgstr "Phone number is in the wrong format. It must start with +998"
+
+#: .\api\driverlicenses\models\models.py:13
+#: .\api\driverlicenses\models\models.py:14
+#, fuzzy
+#| msgid "Водитель запрошен"
+msgid "Водительские права"
+msgstr "Driver's license"
+
+#: .\api\driverlicenses\models\models.py:19
+#, fuzzy
+#| msgid "Пользователь"
+msgid "Пользователь. Владелец прав"
+msgstr "User. License holder"
+
+#: .\api\driverlicenses\models\models.py:25
+msgid "Фамилия (1)"
+msgstr "Surname (1)"
+
+#: .\api\driverlicenses\models\models.py:27
+msgid "Имя (2)"
+msgstr "First name (2)"
+
+#: .\api\driverlicenses\models\models.py:29
+#, fuzzy
+#| msgid "Место рождения"
+msgid "Дата рождения (3)"
+msgstr "Place of birth"
+
+#: .\api\driverlicenses\models\models.py:32
+#, fuzzy
+#| msgid "Способ получения"
+msgid "Дата получения (4a)"
+msgstr "Pickup method"
+
+#: .\api\driverlicenses\models\models.py:35
+#, fuzzy
+#| msgid "Срок действия ВУ до"
+msgid "Срок действия (4b)"
+msgstr "License valid until"
+
+#: .\api\driverlicenses\models\models.py:38
+#, fuzzy
+#| msgid "Начало действия категории"
+msgid "Имеет ли B категорию (9)"
+msgstr "Category start date"
+
+#: .\api\driverlicenses\models\models.py:41
+#, fuzzy
+#| msgid "Серия и номер ВУ"
+msgid "Серийный номер (10)"
+msgstr "License series and number"
+
+#: .\api\driverlicenses\models\models.py:49
+msgid "Фото прав"
+msgstr "Driver's license photo"
+
+#: .\api\driverlicenses\models\models.py:56
+msgid "Фото прав сзади"
+msgstr "Back side of driver's license photo"
+
+#: .\api\driverlicenses\models\models.py:64
+msgid "Права"
+msgstr "Driver's license"
+
+#: .\api\driverlicenses\views\create.py:37 .\api\passports\views\create.py:30
+msgid "У вас уже есть документ"
+msgstr "You already have a document"
+
+#: .\api\locations\models\models.py:11
+msgid "Локация"
+msgstr "Location"
+
+#: .\api\locations\models\models.py:12
+msgid "Локации"
+msgstr "Locations"
+
+#: .\api\notifications\models\models.py:12
+msgid "Оповещение (FCM)"
+msgstr "Notification (FCM)"
+
+#: .\api\notifications\models\models.py:13
+msgid "Оповещения (FCM)"
+msgstr "Notifications (FCM)"
+
+#: .\api\notifications\models\models.py:27
+msgid "Устройство (FCM)"
+msgstr "Device (FCM)"
+
+#: .\api\notifications\models\models.py:28
+#, fuzzy
+#| msgid "Устройство (FCM)"
+msgid "Устройства (FCM)"
+msgstr "Device (FCM)"
+
+#: .\api\passports\models\models.py:15
+msgid "Паспорта"
+msgstr "Passports"
+
+#: .\api\passports\models\models.py:20
+msgid "Пользователь. Владелец паспорта"
+msgstr "User. Passport holder"
+
+#: .\api\passports\models\models.py:26
+msgid "Является ли ID картой"
+msgstr "Is it an ID card"
+
+#: .\api\passports\models\models.py:28 .\api\validate_uz\models.py:27
+msgid "Имя"
+msgstr "First name"
+
+#: .\api\passports\models\models.py:29 .\api\validate_uz\models.py:24
+msgid "Фамилия"
+msgstr "Last name"
+
+#: .\api\passports\models\models.py:31 .\api\validate_uz\models.py:30
+msgid "Отчество"
+msgstr "Patronymic"
+
+#: .\api\passports\models\models.py:34
+msgid "ПИНФЛ"
+msgstr "PINFL"
+
+#: .\api\passports\models\models.py:41 .\api\validate_uz\models.py:33
+msgid "Дата рождения"
+msgstr "Date of birth"
+
+#: .\api\passports\models\models.py:44
+msgid "Серия и номер паспорта"
+msgstr "Passport series and number"
+
+#: .\api\passports\models\models.py:48
+msgid "Фото паспорта"
+msgstr "Passport photo"
+
+#: .\api\passports\models\models.py:55
+msgid "Фото паспорта сзади (если ID карта)"
+msgstr "Back side of passport photo (if ID card)"
+
+#: .\api\passports\validators.py:10
+msgid "ПИНФЛ состоит из 14 цифр"
+msgstr "PINFL must consist of 14 digits"
+
+#: .\api\payments\admin.py:53
+msgid "Сумма аренды"
+msgstr "Rental amount"
+
+#: .\api\payments\admin.py:60
+msgid "Сумма залога"
+msgstr "Security deposit amount"
+
+#: .\api\payments\admin.py:67
+msgid "Списать депозит для выделенных"
+msgstr "Withdraw deposit for selected"
+
+#: .\api\payments\admin.py:82
+msgid "Вернуть депозит для выделенных"
+msgstr "Refund deposit for selected"
+
+#: .\api\payments\models\models.py:11
+msgid "Card"
+msgstr "Card"
+
+#: .\api\payments\models\models.py:12
+msgid "Cash"
+msgstr "Cash"
+
+#: .\api\payments\models\models.py:15
+msgid "Инициализирован"
+msgstr "Initialized"
+
+#: .\api\payments\models\models.py:16
+msgid "Ожидает"
+msgstr "Pending"
+
+#: .\api\payments\models\models.py:17
+msgid "Успешно"
+msgstr "Successful"
+
+#: .\api\payments\models\models.py:18
+msgid "Ошибка"
+msgstr "Error"
+
+#: .\api\payments\models\models.py:19 .\api\payments\models\models.py:25
+msgid "Отменён"
+msgstr "Cancelled"
+
+#: .\api\payments\models\models.py:22
+msgid "Без холда"
+msgstr "Without hold"
+
+#: .\api\payments\models\models.py:23
+msgid "Авторизован"
+msgstr "Authorized"
+
+#: .\api\payments\models\models.py:24
+msgid "Списан"
+msgstr "Charged"
+
+#: .\api\promo\models\coupon.py:10
+msgid "промокод"
+msgstr "promo code"
+
+#: .\api\promo\models\coupon.py:11
+msgid "Промокоды"
+msgstr "Promo codes"
+
+#: .\api\promo\models\coupon.py:13
+msgid "Промокод"
+msgstr "Promo code"
+
+#: .\api\promo\models\coupon.py:18
+msgid "Активен"
+msgstr "Active"
+
+#: .\api\promo\models\coupon.py:21
+msgid "% Скидки"
+msgstr "% Discount"
+
+#: .\api\promo\models\coupon.py:22
+#, fuzzy
+#| msgid "Доставка возможна только в пределах Ташкента."
+msgid "Скидка только на аренду в процентах"
+msgstr "Discount applies to rental only (in percent)"
+
+#: .\api\promo\models\used_coupons.py:26
+msgid "Купон"
+msgstr "Coupon"
+
+#: .\api\promo\models\used_coupons.py:26
+msgid "использованный"
+msgstr "used coupon"
+
+#: .\api\promo\views\get_by_name.py:31
+msgid "Необходим параметр name"
+msgstr "'name' parameter is required"
+
+#: .\api\promo\views\get_by_name.py:36
+msgid "Промокод не найден"
+msgstr "Promo code not found"
+
+#: .\api\promo\views\get_by_name.py:39
+msgid "Промокод больше не активен"
+msgstr "Promo code is no longer active"
+
+#: .\api\promo\views\get_by_name.py:42
+msgid "Вы уже использовали этот промокод"
+msgstr "You have already used this promo code"
+
+#: .\api\referral\models\model.py:14
+#, fuzzy
+#| msgid "Арендная компания"
+msgid "реферальная информация"
+msgstr "Rental company"
+
+#: .\api\referral\models\model.py:15
+#, fuzzy
+#| msgid "Арендная компания"
+msgid "Реферальная информация"
+msgstr "Rental company"
+
+#: .\api\referral\models\model.py:26
+#, fuzzy
+#| msgid "Неверный или просроченный токен"
+msgid "Свой реферальный токен"
+msgstr "Invalid or expired token"
+
+#: .\api\referral\models\model.py:32
+#, fuzzy
+#| msgid "У пользователя нет FCM токена:"
+msgid "Использованый реферальный токен"
+msgstr "User has no FCM token:"
+
+#: .\api\referral\models\model.py:36
+msgid "Текущий баланс реферальной скидки"
+msgstr ""
+
+#: .\api\referral\models\model.py:42 .\api\users\admin\admin.py:141
+#, fuzzy
+#| msgid "Автомобиль у пользователя"
+msgid "Число приглашенных пользователей"
+msgstr "Car is with the user"
+
+#: .\api\referral\views\get_link.py:18
+msgid "Неудалось получить ссылку"
+msgstr ""
+
+#: .\api\users\admin\admin.py:20
+msgid "Добавить реферальные данные"
+msgstr ""
+
+#: .\api\users\admin\admin.py:30 .\api\users\admin\admin.py:136
+msgid "Количество бронирований"
+msgstr "Number of bookings"
+
+#: .\api\users\admin\admin.py:35
+msgid "0 бронирований"
+msgstr "0 bookings"
+
+#: .\api\users\admin\admin.py:36
+msgid "Хотя бы 1 бронирование"
+msgstr "At least 1 booking"
+
+#: .\api\users\admin\admin.py:125
+msgid "Аккаунт"
+msgstr "Account"
+
+#: .\api\users\admin\admin.py:129
+msgid "Статус верификации"
+msgstr "Verification status"
+
+#: .\api\users\admin\admin.py:148
+msgid "Реферальный баланс"
+msgstr ""
+
+#: .\api\users\models\manager.py:10
+msgid "У пользователя должен быть номер телефона"
+msgstr "User must have a phone number"
+
+#: .\api\users\models\manager.py:27
+msgid "Суперпользователь должен иметь is_staff=True."
+msgstr "Superuser must have is_staff=True."
+
+#: .\api\users\models\manager.py:30
+msgid "Суперпользователь должен иметь is_superuser=True."
+msgstr "Superuser must have is_superuser=True."
+
+#: .\api\users\models\roles.py:6
+msgid "Суперпользователь"
+msgstr "Superuser"
+
+#: .\api\users\models\user.py:27
+msgid "пользователя"
+msgstr "user"
+
+#: .\api\users\models\user.py:28
+msgid "Пользователи"
+msgstr "Users"
+
+#: .\api\users\models\user.py:36
+msgid "Язык интерфейса"
+msgstr ""
+
+#: .\api\users\models\user.py:43
+msgid "Роль"
+msgstr "Role"
+
+#: .\api\users\models\user.py:49
+msgid "Номер телефона"
+msgstr "Phone number"
+
+#: .\api\users\models\user.py:68
+msgid "FCM токен устройства"
+msgstr "Device FCM token"
+
+#: .\api\users\models\user.py:70
+msgid "Имя по паспорту"
+msgstr "Name from passport"
+
+#: .\api\users\models\user.py:71
+msgid "Фамилия по паспорту"
+msgstr "Surname from passport"
+
+#: .\api\users\models\user.py:74
+msgid "Возраст"
+msgstr "Age"
+
+#: .\api\users\models\user.py:81
+#, fuzzy
+#| msgid "Фото прав"
+msgid "Фото профиля"
+msgstr "Driver's license photo"
+
+#: .\api\users\serializers\fcm_serializer.py:7
+msgid "FCM токен мобильного клиента"
+msgstr "Mobile client FCM token"
+
+#: .\api\users\validators.py:14 .\common\documents\validators.py:14
+msgid "Неверный формат файла. "
+msgstr "Invalid file format."
+
+#: .\api\users\views\fcm_view.py:15
+msgid "Сохраняет FCM токен пользователя"
+msgstr "Saves user's FCM token"
+
+#: .\api\users\views\fcm_view.py:20
+msgid "Возвращает текущий FCM токен пользователя"
+msgstr "Returns current user's FCM token"
+
+#: .\api\users\views\fcm_view.py:30
+msgid "FCM токен сохранён"
+msgstr "FCM token saved"
+
+#: .\api\users\views\get_by_phone.py:18
+msgid "Существует ли renter с данным номером телефона"
+msgstr "Does a renter with this phone number exist"
+
+#: .\api\users\views\get_by_phone.py:27
+msgid "Необходим параметр phone"
+msgstr "'phone' parameter is required"
+
+#: .\api\users\views\get_my.py:16
+#, fuzzy
+#| msgid "Сохраняет FCM токен пользователя"
+msgid "Получить собственного пользователя по jwt"
+msgstr "Saves user's FCM token"
+
+#: .\api\users\views\register.py:33
+msgid "[Superuser] Создать нового админа"
+msgstr "[Superuser] Create a new admin"
+
+#: .\api\users\views\register.py:53
+msgid "Пользователь с таким логином уже существует"
+msgstr "A user with this login already exists"
+
+#: .\api\validate_uz\models.py:18
+msgid "Паспорт (серия и номер)"
+msgstr "Passport (series and number)"
+
+#: .\api\validate_uz\models.py:21
+msgid "ФИО (полностью)"
+msgstr "Full name"
+
+#: .\api\validate_uz\models.py:37
+msgid "Дата выдачи ВУ"
+msgstr "License issue date"
+
+#: .\api\validate_uz\models.py:40
+msgid "Срок действия ВУ до"
+msgstr "License valid until"
+
+#: .\api\validate_uz\models.py:43
+msgid "Кем выдано ВУ"
+msgstr "Issued by"
+
+#: .\api\validate_uz\models.py:46
+msgid "Серия и номер ВУ"
+msgstr "License series and number"
+
+#: .\api\validate_uz\models.py:49
+msgid "Категория ВУ"
+msgstr "License category"
+
+#: .\api\validate_uz\models.py:52
+msgid "Начало действия категории"
+msgstr "Category start date"
+
+#: .\api\validate_uz\models.py:55
+msgid "Окончание действия категории"
+msgstr "Category end date"
+
+#: .\api\validate_uz\models.py:59
+msgid "ID региона рождения"
+msgstr "Birth region ID"
+
+#: .\api\validate_uz\models.py:62
+msgid "ID города рождения"
+msgstr "Birth city ID"
+
+#: .\api\validate_uz\models.py:65
+msgid "Место рождения"
+msgstr "Place of birth"
+
+#: .\api\validate_uz\models.py:68
+msgid "ID региона адреса проживания"
+msgstr "Residence region ID"
+
+#: .\api\validate_uz\models.py:71
+msgid "ID города адреса проживания"
+msgstr "Residence city ID"
+
+#: .\api\validate_uz\models.py:77
+msgid "Адрес проживания (улица, дом)"
+msgstr "Address of residence (street, house)"
+
+#: .\api\validate_uz\models.py:81
+msgid "Сумма долгов"
+msgstr "Debt amount"
+
+#: .\api\validate_uz\models.py:85
+msgid "данные из validate.uz"
+msgstr "data from validate.uz"
+
+#: .\api\validate_uz\models.py:86
+msgid "Данные из validate.uz"
+msgstr "Data from validate.uz"
+
+#: .\common\constants.py:12
+msgid "Доставка"
+msgstr "Delivery"
+
+#: .\common\constants.py:19
+msgid "Стандарт"
+msgstr "Standard"
+
+#: .\common\constants.py:20
+msgid "Премиум"
+msgstr "Premium"
+
+#: .\common\constants.py:25
+msgid "Электрическая"
+msgstr "Electric"
+
+#: .\common\constants.py:26
+msgid "Бензиновая"
+msgstr "Petrol"
+
+#: .\common\constants.py:27
+msgid "Гибридная"
+msgstr "Hybrid"
+
+#: .\common\constants.py:31
+msgid "Белый"
+msgstr "White"
+
+#: .\common\constants.py:32
+msgid "Чёрный"
+msgstr "Black"
+
+#: .\common\constants.py:33
+msgid "Серебристый"
+msgstr "Silver"
+
+#: .\common\constants.py:34
+msgid "Серый"
+msgstr "Gray"
+
+#: .\common\constants.py:35
+msgid "Синий"
+msgstr "Blue"
+
+#: .\common\constants.py:36
+msgid "Красный"
+msgstr "Red"
+
+#: .\common\constants.py:37
+msgid "Зелёный"
+msgstr "Green"
+
+#: .\common\constants.py:38
+msgid "Жёлтый"
+msgstr "Yellow"
+
+#: .\common\constants.py:39
+msgid "Коричневый"
+msgstr "Brown"
+
+#: .\common\constants.py:40
+msgid "Оранжевый"
+msgstr "Orange"
+
+#: .\common\constants.py:41
+msgid "Бежевый"
+msgstr "Beige"
+
+#: .\common\constants.py:42
+msgid "Золотистый"
+msgstr "Golden"
+
+#: .\common\constants.py:43
+msgid "Фиолетовый"
+msgstr "Purple"
+
+#: .\common\constants.py:44
+msgid "Другой"
+msgstr "Other"
+
+#: .\common\constants.py:48
+msgid "Хэтчбек"
+msgstr "Hatchback"
+
+#: .\common\constants.py:49
+msgid "Седан"
+msgstr "Sedan"
+
+#: .\common\constants.py:50
+msgid "Внедорожник"
+msgstr "SUV"
+
+#: .\common\constants.py:51
+msgid "Минивэн"
+msgstr "Minivan"
+
+#: .\common\constants.py:52
+msgid "Купе"
+msgstr "Coupe"
+
+#: .\common\constants.py:53
+msgid "Кабриолет"
+msgstr "Convertible"
+
+#: .\common\constants.py:54
+msgid "Пикап"
+msgstr "Pickup"
+
+#: .\common\constants.py:93
+msgid "Карта"
+msgstr "Card"
+
+#: .\common\constants.py:94
+msgid "Наличные"
+msgstr "Cash"
+
+#: .\common\documents\constants.py:10
+msgid "Ожидание авто проверки"
+msgstr "Awaiting auto verification"
+
+#: .\common\documents\constants.py:11
+msgid "Авто проверка не выполнена"
+msgstr "Auto verification not completed"
+
+#: .\common\documents\constants.py:12
+msgid "Авто проверка успешна"
+msgstr "Auto verification successful"
+
+#: .\common\documents\constants.py:13
+msgid "Подтверждено"
+msgstr "Confirmed"
+
+#: .\common\documents\constants.py:14
+msgid "Отклонено"
+msgstr "Rejected"
+
+#: .\common\documents\models.py:16
+msgid "Состояние валидации"
+msgstr "Validation status"
+
+#: .\common\documents\serializers.py:43
+msgid "PDF файл содержит слишком много страниц"
+msgstr "PDF file contains too many pages"
+
+#: .\common\documents\serializers.py:46
+msgid "PDF файл пуст"
+msgstr "PDF file is empty"
+
+#: .\common\documents\serializers.py:58
+msgid ""
+"Необходимо предоставить либо два фото (спереди и сзади в формате .png, .jpg) "
+"либо .pdf файл с двумя страницами"
+msgstr ""
+"You must provide either two photos (front and back in .png, .jpg format) or "
+"a .pdf file with two pages"
+
+#: .\common\documents\services\scan_service\exeptions.py:5
+msgid "Ошибка чтения документа"
+msgstr "Error reading document"
+
+#: .\common\validators.py:10
+#, fuzzy
+#| msgid "Неверный код"
+msgid "Неверный номер"
+msgstr "Invalid code"
+
+#: .\common\validators.py:16
+msgid "Код имеет некорректный формат"
+msgstr "Code is in incorrect format"
+
+#: .\common\validators.py:22
+msgid "Цена должна быть больше нуля."
+msgstr "Price must be greater than zero."
+
+#: .\core\settings.py:270
+msgid "Uzbek"
+msgstr "Uzbek"
+
+#: .\core\settings.py:271
+msgid "Russian"
+msgstr "Russian"
+
+#: .\core\settings.py:272
+msgid "English"
+msgstr "English"
+
+#: .\firebase\notification.py:49
+msgid "Статус FCM:"
+msgstr "FCM status:"
+
+#: .\firebase\notification.py:50
+msgid "Ответ FCM:"
+msgstr "FCM response:"
+
+#: .\firebase\notification.py:57
+msgid "У пользователя нет FCM токена:"
+msgstr "User has no FCM token:"
+
+#: .\firebase\notification.py:66
+msgid "⛽ Напоминание о топливе"
+msgstr "⛽ Fuel reminder"
+
+#~ msgid ""
+#~ "Имя должно быть написано с большой буквы и не должно содержать "
+#~ "специальных символов и цифр"
+#~ msgstr ""
+#~ "The first name must start with a capital letter and contain no special "
+#~ "characters or digits"
+
+#~ msgid ""
+#~ "Фамилия должна быть написана с большой буквы и не должна содержать "
+#~ "специальных символов и цифр"
+#~ msgstr ""
+#~ "The surname must start with a capital letter and contain no special "
+#~ "characters or digits"
+
+#~ msgid "Уровень топлива при передаче (%)"
+#~ msgstr "Fuel level at handover (%)"
+
+#~ msgid "Необходимо согласие с условиями."
+#~ msgstr "You must agree to the terms."
+
+#~ msgid "Это авто нельзя доставить."
+#~ msgstr "This car cannot be delivered."
+
+#~ msgid "Доставка возможна только в пределах Ташкента."
+#~ msgstr "Delivery is only available within Tashkent."
+
+#~ msgid "Автомобиль уже забронирован на выбранное время."
+#~ msgstr "The car is already booked for the selected time."
+
+#~ msgid "Текст напоминания о возврате топлива или null"
+#~ msgstr "Reminder text for fuel return or null"
+
+#, python-brace-format
+#~ msgid ""
+#~ "Пожалуйста, верните автомобиль с уровнем топлива: {fuel_level} литров."
+#~ msgstr "Please return the car with fuel level: {fuel_level} liters."
+
+#~ msgid ""
+#~ "Для бронирования необходимо загрузить паспорт и водительские права в "
+#~ "личном кабинете."
+#~ msgstr ""
+#~ "To book, you need to upload your passport and driver’s license in your "
+#~ "profile."
+
+#~ msgid ""
+#~ "Ваши документы не прошли проверку, загрузите их заново в личном кабинете."
+#~ msgstr ""
+#~ "Your documents failed verification. Please re-upload them in your profile."
+
+#~ msgid ""
+#~ "Администрация проверяет ваши документы. Подождите 5 минут, скоро закончим."
+#~ msgstr "Your documents are being reviewed. Please wait 5 minutes."
+
+#~ msgid "Поддерживает доставку"
+#~ msgstr "Supports delivery"
+
+#~ msgid "Номер телефона неверного формата. Он должен начинаться с +998"
+#~ msgstr "Phone number is in the wrong format. It must start with +998"
+
+#~ msgid "Как валидировать?"
+#~ msgstr "How to validate?"

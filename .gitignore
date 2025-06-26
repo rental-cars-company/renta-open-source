@@ -1,0 +1,15 @@
+# .gitignore
+.vscode/
+.venv
+venv/
+__pycache__/
+*.pyc
+db.sqlite3
+.env
+car_images
+secrets
+media/
+moshin-backend.zip
+.idea
+dev.env
+prod.env

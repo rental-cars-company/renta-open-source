@@ -1,0 +1,1997 @@
+openapi: 3.0.3
+info:
+  title: Moshin API
+  version: 1.0.0
+  description: Документация для API сервиса аренды автомобилей
+paths:
+  /api/auth/login/:
+    post:
+      operationId: api_auth_login_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Login'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Login'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Login'
+          description: ''
+  /api/auth/refresh/:
+    post:
+      operationId: api_auth_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/auth/verify/:
+    post:
+      operationId: api_auth_verify_create
+      description: |-
+        Takes a token and indicates if it is valid.  This view provides no
+        information about a token's fitness for a particular use.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenVerify'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenVerify'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenVerify'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenVerify'
+          description: ''
+  /api/bookings/bookings/:
+    get:
+      operationId: api_bookings_bookings_list
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBookingList'
+          description: ''
+    post:
+      operationId: api_bookings_bookings_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Booking'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Booking'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Booking'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+          description: ''
+  /api/bookings/bookings/{id}/:
+    get:
+      operationId: api_bookings_bookings_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this booking.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+          description: ''
+    put:
+      operationId: api_bookings_bookings_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this booking.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Booking'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Booking'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Booking'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+          description: ''
+    patch:
+      operationId: api_bookings_bookings_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this booking.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedBooking'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedBooking'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedBooking'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+          description: ''
+    delete:
+      operationId: api_bookings_bookings_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this booking.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/bookings/bookings/{id}/status/:
+    patch:
+      operationId: api_bookings_bookings_status_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this booking.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedBooking'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedBooking'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedBooking'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+          description: ''
+  /api/bookings/bookings/calculate/:
+    post:
+      operationId: api_bookings_bookings_calculate_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Booking'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Booking'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Booking'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+          description: ''
+  /api/bookings/bookings/history/:
+    get:
+      operationId: api_bookings_bookings_history_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+          description: ''
+  /api/bookings/bookings/my-bookings/:
+    get:
+      operationId: api_bookings_bookings_my_bookings_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+          description: ''
+  /api/cars/:
+    get:
+      operationId: api_cars_list
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCarsList'
+          description: ''
+    post:
+      operationId: api_cars_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cars'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Cars'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Cars'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cars'
+          description: ''
+  /api/cars/{id}/:
+    get:
+      operationId: api_cars_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Машина.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cars'
+          description: ''
+    put:
+      operationId: api_cars_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Машина.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cars'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Cars'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Cars'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cars'
+          description: ''
+    patch:
+      operationId: api_cars_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Машина.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCars'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCars'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCars'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cars'
+          description: ''
+    delete:
+      operationId: api_cars_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Машина.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/cars/{id}/favorite/:
+    post:
+      operationId: api_cars_favorite_create
+      description: Добавление авто в избранное.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Машина.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cars'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Cars'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Cars'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cars'
+          description: ''
+    delete:
+      operationId: api_cars_favorite_destroy
+      description: Удаление авто из избранного.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Машина.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/cars/favorites/:
+    get:
+      operationId: api_cars_favorites_retrieve
+      description: Получение списка избранных авто текущего пользователя.
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cars'
+          description: ''
+  /api/driverlicenses/:
+    get:
+      operationId: api_driverlicenses_list
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDriverLicenseList'
+          description: ''
+    post:
+      operationId: api_driverlicenses_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DriverLicense'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DriverLicense'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DriverLicense'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverLicense'
+          description: ''
+  /api/driverlicenses/{id}/:
+    get:
+      operationId: api_driverlicenses_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Водительские права.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverLicense'
+          description: ''
+    put:
+      operationId: api_driverlicenses_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Водительские права.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DriverLicense'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DriverLicense'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DriverLicense'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverLicense'
+          description: ''
+    patch:
+      operationId: api_driverlicenses_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Водительские права.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDriverLicense'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDriverLicense'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDriverLicense'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverLicense'
+          description: ''
+    delete:
+      operationId: api_driverlicenses_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Водительские права.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/locations/:
+    get:
+      operationId: api_locations_list
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedLocationList'
+          description: ''
+    post:
+      operationId: api_locations_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Location'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Location'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+          description: ''
+  /api/locations/{id}/:
+    get:
+      operationId: api_locations_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this location.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+          description: ''
+    put:
+      operationId: api_locations_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this location.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Location'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Location'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+          description: ''
+    patch:
+      operationId: api_locations_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this location.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedLocation'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedLocation'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedLocation'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+          description: ''
+    delete:
+      operationId: api_locations_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this location.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/passports/:
+    get:
+      operationId: api_passports_list
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPassportList'
+          description: ''
+    post:
+      operationId: api_passports_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Passport'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Passport'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Passport'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Passport'
+          description: ''
+  /api/passports/{id}/:
+    get:
+      operationId: api_passports_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Паспортные данные.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Passport'
+          description: ''
+    put:
+      operationId: api_passports_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Паспортные данные.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Passport'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Passport'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Passport'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Passport'
+          description: ''
+    patch:
+      operationId: api_passports_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Паспортные данные.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPassport'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPassport'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPassport'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Passport'
+          description: ''
+    delete:
+      operationId: api_passports_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Паспортные данные.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/users/:
+    get:
+      operationId: api_users_list
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedUserList'
+          description: ''
+    post:
+      operationId: api_users_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/users/{id}/:
+    get:
+      operationId: api_users_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this пользователь.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    put:
+      operationId: api_users_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this пользователь.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    patch:
+      operationId: api_users_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this пользователь.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    delete:
+      operationId: api_users_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this пользователь.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/users/fcm-token/:
+    get:
+      operationId: api_users_fcm_token_retrieve
+      description: Возвращает текущий FCM токен пользователя
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FCMToken'
+          description: ''
+    post:
+      operationId: api_users_fcm_token_create
+      description: Сохраняет FCM токен пользователя
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FCMToken'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FCMToken'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FCMToken'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+components:
+  schemas:
+    Booking:
+      type: object
+      properties:
+        car:
+          type: integer
+        start_datetime:
+          type: string
+          format: date-time
+        end_datetime:
+          type: string
+          format: date-time
+        delivery_option:
+          allOf:
+          - $ref: '#/components/schemas/DeliveryOptionEnum'
+          title: Способ получения
+        delivery_latitude:
+          type: number
+          format: double
+          nullable: true
+        delivery_longitude:
+          type: number
+          format: double
+          nullable: true
+        agreed_to_terms:
+          type: boolean
+        delivery_price:
+          type: integer
+          readOnly: true
+        rental_summary:
+          type: string
+          readOnly: true
+      required:
+      - car
+      - delivery_option
+      - delivery_price
+      - end_datetime
+      - rental_summary
+      - start_datetime
+    CarClassEnum:
+      enum:
+      - standard
+      - premium
+      type: string
+      description: |-
+        * `standard` - Стандарт
+        * `premium` - Премиум
+    CarImage:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        image:
+          type: string
+          format: uri
+      required:
+      - id
+      - image
+    Cars:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        fleet:
+          type: integer
+          nullable: true
+          title: Автопарк
+        car_class:
+          allOf:
+          - $ref: '#/components/schemas/CarClassEnum'
+          title: Класс авто (стандарт/премиум)
+        brand:
+          type: string
+          title: Марка
+          maxLength: 100
+        model:
+          type: string
+          title: Модель
+          maxLength: 100
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        is_automatic:
+          type: boolean
+          nullable: true
+        year:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          title: Год выпуска
+        license_plate:
+          type: string
+          title: Регистрационный номер
+          maxLength: 20
+        color:
+          allOf:
+          - $ref: '#/components/schemas/ColorEnum'
+          title: Цвет
+        color_display:
+          type: string
+          readOnly: true
+        owner:
+          type: integer
+          title: Владелец
+        owner_phone_number:
+          type: string
+          title: Номер телефона владельца
+          maxLength: 20
+        available_from:
+          type: string
+          format: time
+          title: Доступен с
+        available_to:
+          type: string
+          format: time
+          title: Доступен до
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Добавлено
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Изменено
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/CarImage'
+          readOnly: true
+        uploaded_images:
+          type: array
+          items:
+            type: string
+            format: uri
+          writeOnly: true
+        android_auto:
+          type: boolean
+        apple_car_play:
+          type: boolean
+          title: Apple CarPlay
+        child_seat:
+          type: boolean
+          title: Детское кресло
+        bluetooth:
+          type: boolean
+        aux:
+          type: boolean
+        description:
+          type: string
+          nullable: true
+          title: Описание
+        car_type:
+          type: string
+          nullable: true
+          title: Тип кузова (sedan, suv и т.д.)
+          maxLength: 32
+        supports_delivery:
+          type: boolean
+          title: Поддерживает доставку
+      required:
+      - available_from
+      - available_to
+      - brand
+      - color
+      - color_display
+      - created_at
+      - id
+      - images
+      - is_automatic
+      - license_plate
+      - model
+      - owner
+      - owner_phone_number
+      - price
+      - updated_at
+      - year
+    ColorEnum:
+      enum:
+      - white
+      - black
+      - silver
+      - gray
+      - blue
+      - red
+      - green
+      - yellow
+      - brown
+      - orange
+      - beige
+      - gold
+      - purple
+      - other
+      type: string
+      description: |-
+        * `white` - Белый
+        * `black` - Чёрный
+        * `silver` - Серебристый
+        * `gray` - Серый
+        * `blue` - Синий
+        * `red` - Красный
+        * `green` - Зелёный
+        * `yellow` - Жёлтый
+        * `brown` - Коричневый
+        * `orange` - Оранжевый
+        * `beige` - Бежевый
+        * `gold` - Золотистый
+        * `purple` - Фиолетовый
+        * `other` - Другой
+    DeliveryOptionEnum:
+      enum:
+      - pickup
+      - delivery
+      type: string
+      description: |-
+        * `pickup` - Самовывоз
+        * `delivery` - Доставка
+    DriverLicense:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        validation_status:
+          allOf:
+          - $ref: '#/components/schemas/ValidationStatusEnum'
+          title: Состояние валидации
+        surname:
+          type: string
+          title: Фамилия (1)
+        date_of_birth:
+          type: string
+          format: date
+          title: Дата рождения (3)
+        acquire_date:
+          type: string
+          format: date
+          title: Дата получения (4a)
+        validity_period:
+          type: string
+          title: Срок действия (4b)
+        has_b_category:
+          type: boolean
+          title: Имеет ли B категорию (9)
+        name:
+          type: string
+          title: Серийный номер (10)
+        image:
+          type: string
+          format: uri
+          title: Фото прав
+        user:
+          type: integer
+          readOnly: true
+          title: Пользователь. Владелец прав
+      required:
+      - acquire_date
+      - date_of_birth
+      - has_b_category
+      - id
+      - image
+      - name
+      - surname
+      - user
+      - validity_period
+    FCMToken:
+      type: object
+      properties:
+        device_token:
+          type: string
+          description: FCM токен мобильного клиента
+      required:
+      - device_token
+    Location:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        name:
+          type: string
+          nullable: true
+          maxLength: 255
+      required:
+      - id
+      - latitude
+      - longitude
+    Login:
+      type: object
+      properties:
+        phone:
+          type: string
+          writeOnly: true
+        verification_code:
+          type: integer
+          writeOnly: true
+      required:
+      - phone
+      - verification_code
+    PaginatedBookingList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Booking'
+    PaginatedCarsList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Cars'
+    PaginatedDriverLicenseList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/DriverLicense'
+    PaginatedLocationList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
+    PaginatedPassportList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Passport'
+    PaginatedUserList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    Passport:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        validation_status:
+          allOf:
+          - $ref: '#/components/schemas/ValidationStatusEnum'
+          title: Состояние валидации
+        name:
+          type: string
+          title: Имя
+        surname:
+          type: string
+          title: Фамилия
+        pinfl:
+          type: string
+          title: ПИНФЛ
+        date_of_birth:
+          type: string
+          format: date
+          title: Дата рождения
+        image:
+          type: string
+          format: uri
+          title: Фото пассорта
+        user:
+          type: integer
+          readOnly: true
+          title: Пользователь
+      required:
+      - date_of_birth
+      - id
+      - image
+      - name
+      - pinfl
+      - surname
+      - user
+    PatchedBooking:
+      type: object
+      properties:
+        car:
+          type: integer
+        start_datetime:
+          type: string
+          format: date-time
+        end_datetime:
+          type: string
+          format: date-time
+        delivery_option:
+          allOf:
+          - $ref: '#/components/schemas/DeliveryOptionEnum'
+          title: Способ получения
+        delivery_latitude:
+          type: number
+          format: double
+          nullable: true
+        delivery_longitude:
+          type: number
+          format: double
+          nullable: true
+        agreed_to_terms:
+          type: boolean
+        delivery_price:
+          type: integer
+          readOnly: true
+        rental_summary:
+          type: string
+          readOnly: true
+    PatchedCars:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        fleet:
+          type: integer
+          nullable: true
+          title: Автопарк
+        car_class:
+          allOf:
+          - $ref: '#/components/schemas/CarClassEnum'
+          title: Класс авто (стандарт/премиум)
+        brand:
+          type: string
+          title: Марка
+          maxLength: 100
+        model:
+          type: string
+          title: Модель
+          maxLength: 100
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        is_automatic:
+          type: boolean
+          nullable: true
+        year:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          title: Год выпуска
+        license_plate:
+          type: string
+          title: Регистрационный номер
+          maxLength: 20
+        color:
+          allOf:
+          - $ref: '#/components/schemas/ColorEnum'
+          title: Цвет
+        color_display:
+          type: string
+          readOnly: true
+        owner:
+          type: integer
+          title: Владелец
+        owner_phone_number:
+          type: string
+          title: Номер телефона владельца
+          maxLength: 20
+        available_from:
+          type: string
+          format: time
+          title: Доступен с
+        available_to:
+          type: string
+          format: time
+          title: Доступен до
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Добавлено
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Изменено
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/CarImage'
+          readOnly: true
+        uploaded_images:
+          type: array
+          items:
+            type: string
+            format: uri
+          writeOnly: true
+        android_auto:
+          type: boolean
+        apple_car_play:
+          type: boolean
+          title: Apple CarPlay
+        child_seat:
+          type: boolean
+          title: Детское кресло
+        bluetooth:
+          type: boolean
+        aux:
+          type: boolean
+        description:
+          type: string
+          nullable: true
+          title: Описание
+        car_type:
+          type: string
+          nullable: true
+          title: Тип кузова (sedan, suv и т.д.)
+          maxLength: 32
+        supports_delivery:
+          type: boolean
+          title: Поддерживает доставку
+    PatchedDriverLicense:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        validation_status:
+          allOf:
+          - $ref: '#/components/schemas/ValidationStatusEnum'
+          title: Состояние валидации
+        surname:
+          type: string
+          title: Фамилия (1)
+        date_of_birth:
+          type: string
+          format: date
+          title: Дата рождения (3)
+        acquire_date:
+          type: string
+          format: date
+          title: Дата получения (4a)
+        validity_period:
+          type: string
+          title: Срок действия (4b)
+        has_b_category:
+          type: boolean
+          title: Имеет ли B категорию (9)
+        name:
+          type: string
+          title: Серийный номер (10)
+        image:
+          type: string
+          format: uri
+          title: Фото прав
+        user:
+          type: integer
+          readOnly: true
+          title: Пользователь. Владелец прав
+    PatchedLocation:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        name:
+          type: string
+          nullable: true
+          maxLength: 255
+    PatchedPassport:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        validation_status:
+          allOf:
+          - $ref: '#/components/schemas/ValidationStatusEnum'
+          title: Состояние валидации
+        name:
+          type: string
+          title: Имя
+        surname:
+          type: string
+          title: Фамилия
+        pinfl:
+          type: string
+          title: ПИНФЛ
+        date_of_birth:
+          type: string
+          format: date
+          title: Дата рождения
+        image:
+          type: string
+          format: uri
+          title: Фото пассорта
+        user:
+          type: integer
+          readOnly: true
+          title: Пользователь
+    PatchedUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Имя по паспорту
+        surname:
+          type: string
+          title: Фамилия по паспорту
+        date_of_birth:
+          type: string
+          format: date
+          title: Дата рождения
+        password:
+          type: string
+          writeOnly: true
+          title: Пароль
+          maxLength: 128
+        phone:
+          type: string
+          title: Номер телефона
+          pattern: ^\+998(9[0-3]|[1-8][0-9])[0-9]{7}$
+        isVerified:
+          type: boolean
+          readOnly: true
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
+    TokenVerify:
+      type: object
+      properties:
+        token:
+          type: string
+          writeOnly: true
+      required:
+      - token
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Имя по паспорту
+        surname:
+          type: string
+          title: Фамилия по паспорту
+        date_of_birth:
+          type: string
+          format: date
+          title: Дата рождения
+        password:
+          type: string
+          writeOnly: true
+          title: Пароль
+          maxLength: 128
+        phone:
+          type: string
+          title: Номер телефона
+          pattern: ^\+998(9[0-3]|[1-8][0-9])[0-9]{7}$
+        isVerified:
+          type: boolean
+          readOnly: true
+      required:
+      - date_of_birth
+      - id
+      - isVerified
+      - name
+      - password
+      - phone
+      - surname
+    ValidationStatusEnum:
+      enum:
+      - pending
+      - approwed
+      - rejected
+      type: string
+      description: |-
+        * `pending` - В процессе
+        * `approwed` - Подтверждено
+        * `rejected` - Отклонено
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

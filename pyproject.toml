@@ -1,0 +1,85 @@
+[tool.poetry]
+name = "moshin-backend"
+version = "0.1.0"
+description = "Backend for Moshin project"
+authors = ["Dauletnazar Mambetnazarov <daulet.nazar@yandex.ru>", "Ukhov Daniil <mr.ukhov@list.ru>", "Chatyev Alexandr <chatyev@inbox.ru>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = ">=3.12"
+asgiref = "3.8.1"
+boto3 = "^1.38.14"
+celery = "^5.5.1"
+channels = "^4.2.2"
+channels-redis = "^4.2.1"
+django = "5.2"
+django-cors-headers = ">=4.7.0,<5.0.0"
+django-filter = "^25.1"
+django-import-export = "^4.3.7"
+django-redis = "^5.4.0"
+django-silk = "^5.3.2"
+django-storages = { extras = ["s3"], version = "^1.14.6" }
+djangorestframework = ">=3.16.0,<4.0.0"
+djangorestframework-simplejwt = ">=5.5.0,<6.0.0"
+drf-spectacular = { extras = ["sidecar"], version = ">=0.28.0,<0.29.0" }
+google-auth = ">=2.38.0,<3.0.0"
+gunicorn = "23.0.0"
+httpx = "^0.28.1"
+opencv-python = "^4.11.0.86"
+pillow = ">=11.1.0,<12.0.0"
+psycopg2-binary = "^2.9.10"
+pymupdf = "^1.25.5"
+pytesseract = ">=0.3.13,<0.4.0"
+redis = "^5.2.1"
+requests = ">=2.32.3,<3.0.0"
+sentry-sdk = "2.30.0"
+sqlparse = "0.5.3"
+uvicorn = { extras = ["standard"], version = ">=0.34.1,<0.35.0" }
+
+
+[tool.poetry.plugins."python.analysis"]
+extraPaths = "moshin_backend"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^4.2.0"
+ruff = "^0.11.3"
+black = "^25.1.0"
+
+[tool.ruff]
+line-length = 80
+lint.select = ["E", "F", "I", "W", "C", "D"]
+lint.ignore = ["D101", "D100", "D102", "D103", "D104", "D105", "D106", "D107", "D205", "E501", "C901", "E722", "F403"]
+fix = true
+exclude = ["*/migrations/*", "*/static/*", "settings.py", "apps.py"]
+
+
+[tool.ruff.lint.isort]
+known-first-party = ["api", "core", "authentication", "bookings", "cars", "driverlicenses", "locations", "messages", "passports", "users", "common"]
+
+[tool.black]
+line-length = 80
+target-version = ['py312']  # или твоя версия питона ...
+skip-string-normalization = false
+exclude = '''
+(/(
+    \.git
+  | \.tox
+  | \.nox
+  | \.venv
+  | \.hypothesis
+  | \.mypy_cache
+  | _build
+  | build
+  | dist
+  | migrations
+  | static
+  | settings.py
+  | apps.py
+)/)
+'''

@@ -1,0 +1,36 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.4  # ✅ Latest as of May 2025
+    hooks:
+      - id: ruff
+        name: Ruff linter
+        language_version: python3.12
+        types: [python]
+        args: [
+          "--fix"
+        ]
+        exclude: |
+          ^migrations/|
+          ^static/|
+          ^settings/
+
+  - repo: https://github.com/psf/black
+    rev: 24.4.2  # ✅ Latest as of May 2025
+    hooks:
+      - id: black
+        name: Black formatter
+        language_version: python3.12
+        types: [python]
+        exclude: |
+          ^migrations/
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        name: Trim trailing whitespace
+        exclude: ^static/
+
+      - id: end-of-file-fixer
+        name: Ensure file ends with newline
+        exclude: ^static/

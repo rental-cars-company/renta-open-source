@@ -1,0 +1,1144 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-11 13:47+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\api\authentication\serializers\renter.py:19
+msgid "Опционально. Код верификации из смс"
+msgstr ""
+
+#: .\api\authentication\serializers\renter.py:24
+msgid "Для android. Хэш приложения"
+msgstr ""
+
+#: .\api\authentication\views\login.py:36
+msgid "Неверный номер телефона или код подтверждения"
+msgstr ""
+
+#: .\api\authentication\views\login.py:48
+#: .\api\authentication\views\login_register.py:70
+msgid "Смс код был выслан на Ваш номер телефона"
+msgstr ""
+
+#: .\api\authentication\views\login.py:52
+#: .\api\authentication\views\login_register.py:76
+msgid "Неверный код"
+msgstr ""
+
+#: .\api\authentication\views\login.py:82
+msgid "Неверное имя пользователя или пароль"
+msgstr ""
+
+#: .\api\authentication\views\login_refresh.py:36
+msgid "Неверный или просроченный токен"
+msgstr ""
+
+#: .\api\bookings\admin\admin.py:105
+#, python-format
+msgid "Статус обновлён: %(old)s → %(new)s"
+msgstr ""
+
+#: .\api\bookings\admin\admin.py:133 .\api\users\models\user.py:56
+msgid "Имя пользователя"
+msgstr ""
+
+#: .\api\bookings\admin\admin.py:141
+msgid "Машина"
+msgstr ""
+
+#: .\api\bookings\admin\admin.py:145
+msgid "Арендная компания"
+msgstr ""
+
+#: .\api\bookings\admin\admin.py:148
+msgid "Принадлежит платформе"
+msgstr ""
+
+#: .\api\bookings\admin\admin.py:151
+msgid "Даты бронирований"
+msgstr ""
+
+#: .\api\bookings\admin\admin.py:155
+msgid "Способ доставки"
+msgstr ""
+
+#: .\api\bookings\admin\admin.py:158
+#, python-format
+msgid "Доставить на: [%(lat)s, %(lon)s]"
+msgstr ""
+
+#: .\api\bookings\admin\admin.py:162 .\common\constants.py:12
+msgid "Самовывоз"
+msgstr ""
+
+#: .\api\bookings\admin\admin.py:164
+msgid "Тип платежа"
+msgstr ""
+
+#: .\api\bookings\admin\admin.py:171
+msgid "Итоговая цена"
+msgstr ""
+
+#: .\api\bookings\admin\admin.py:175
+msgid "Депозит"
+msgstr ""
+
+#: .\api\bookings\admin\admin.py:179
+msgid "Залог (статус)"
+msgstr ""
+
+#: .\api\bookings\admin\admin.py:187
+msgid "Удержан"
+msgstr ""
+
+#: .\api\bookings\admin\admin.py:189
+msgid "Будет возвращён"
+msgstr ""
+
+#: .\api\bookings\admin\admin.py:194 .\api\passports\models\models.py:14
+#: .\api\passports\models\models.py:63
+msgid "Паспорт"
+msgstr ""
+
+#: .\api\bookings\admin\admin.py:203
+msgid "Водительское удостоверение"
+msgstr ""
+
+#: .\api\bookings\admin\admin.py:252
+msgid "ID бронирования"
+msgstr ""
+
+#: .\api\bookings\admin\admin.py:256
+msgid "Телефон пользователя"
+msgstr ""
+
+#: .\api\bookings\admin\admin.py:260
+msgid "Автомобиль"
+msgstr ""
+
+#: .\api\bookings\admin\admin.py:264 .\api\users\models\roles.py:5
+msgid "Администратор"
+msgstr ""
+
+#: .\api\bookings\models\booking.py:20
+msgid "заказ"
+msgstr ""
+
+#: .\api\bookings\models\booking.py:21
+msgid "Заказы"
+msgstr ""
+
+#: .\api\bookings\models\booking.py:25
+msgid "Заказ получен, ожидает подтверждения"
+msgstr ""
+
+#: .\api\bookings\models\booking.py:26
+msgid "Подготовка к передаче"
+msgstr ""
+
+#: .\api\bookings\models\booking.py:27
+msgid "В пути, если выбрана доставка"
+msgstr ""
+
+#: .\api\bookings\models\booking.py:28
+msgid "Автомобиль у пользователя"
+msgstr ""
+
+#: .\api\bookings\models\booking.py:29
+msgid "Аренда завершена"
+msgstr ""
+
+#: .\api\bookings\models\booking.py:30
+msgid "Отменено пользователем или администратором"
+msgstr ""
+
+#: .\api\bookings\models\booking.py:53
+msgid "Способ получения"
+msgstr ""
+
+#: .\api\bookings\models\booking.py:63
+msgid "Забрать машину у клиента"
+msgstr ""
+
+#: .\api\bookings\models\booking.py:65
+msgid "Если True — клиент хочет, чтобы мы сами забрали машину по адресу"
+msgstr ""
+
+#: .\api\bookings\models\booking.py:72
+msgid "Адрес возврата машины клиентом"
+msgstr ""
+
+#: .\api\bookings\models\booking.py:77
+msgid "Водитель запрошен"
+msgstr ""
+
+#: .\api\bookings\models\booking.py:80
+msgid "Верификация личности"
+msgstr ""
+
+#: .\api\bookings\models\booking.py:83
+msgid "Заметки администратора"
+msgstr ""
+
+#: .\api\bookings\models\booking.py:110
+msgid "Стоимость забора авто с адреса клиента"
+msgstr ""
+
+#: .\api\bookings\models\booking.py:137 .\api\payments\admin.py:49
+msgid "Метод оплаты"
+msgstr ""
+
+#: .\api\bookings\models\booking.py:138
+msgid "Выбранный клиентом метод оплаты: карта или наличные"
+msgstr ""
+
+#: .\api\bookings\models\deposits.py:15 .\api\referral\models\model.py:20
+#: .\api\users\models\roles.py:4 .\api\validate_uz\models.py:11
+msgid "Пользователь"
+msgstr ""
+
+#: .\api\bookings\models\deposits.py:21
+msgid "Сумма депозита"
+msgstr ""
+
+#: .\api\bookings\models\deposits.py:26
+msgid "депозит"
+msgstr ""
+
+#: .\api\bookings\models\deposits.py:27
+msgid "Депозиты"
+msgstr ""
+
+#: .\api\bookings\models\status_log.py:14
+msgid "В ожидании"
+msgstr ""
+
+#: .\api\bookings\models\status_log.py:15
+msgid "В процессе"
+msgstr ""
+
+#: .\api\bookings\models\status_log.py:16
+msgid "На доставке"
+msgstr ""
+
+#: .\api\bookings\models\status_log.py:17
+msgid "Принято"
+msgstr ""
+
+#: .\api\bookings\models\status_log.py:18
+msgid "Завершено"
+msgstr ""
+
+#: .\api\bookings\models\status_log.py:19
+msgid "Отменено"
+msgstr ""
+
+#: .\api\bookings\models\status_log.py:33
+msgid "статус бронирования"
+msgstr ""
+
+#: .\api\bookings\models\status_log.py:34
+msgid "Статусы бронирований"
+msgstr ""
+
+#: .\api\bookings\serializers\booking.py:20
+msgid "Детализированная сводка по стоимости аренды"
+msgstr ""
+
+#: .\api\bookings\serializers\booking.py:68
+msgid "Дата начала должна быть раньше даты окончания."
+msgstr ""
+
+#: .\api\bookings\serializers\booking.py:73
+msgid "Нельзя бронировать в прошлом."
+msgstr ""
+
+#: .\api\bookings\serializers\booking.py:79
+msgid "Это авто нельзя забрать самостоятельно."
+msgstr ""
+
+#: .\api\bookings\serializers\booking.py:89
+msgid "Координаты доставки обязательны."
+msgstr ""
+
+#: .\api\bookings\serializers\booking.py:98
+msgid "Укажите адрес, если хотите, чтобы мы забрали машину."
+msgstr ""
+
+#: .\api\bookings\views\bookings_calculate.py:21
+msgid "[renter] Получить детализацию стоимости заказа"
+msgstr ""
+
+#: .\api\bookings\views\bookings_create.py:27
+msgid "[renter] Забронировать машину"
+msgstr ""
+
+#: .\api\bookings\views\bookings_update.py:18
+msgid "[admin] Обновить статус"
+msgstr ""
+
+#: .\api\bookings\views\bookings_update.py:38
+msgid "Booking не найден"
+msgstr ""
+
+#: .\api\cars\admin.py:25
+msgid "Pickup Address"
+msgstr ""
+
+#: .\api\cars\admin.py:39
+msgid "Нельзя добавить больше 4 изображений к одному автомобилю."
+msgstr ""
+
+#: .\api\cars\admin.py:56
+msgid "Превью"
+msgstr ""
+
+#: .\api\cars\forms.py:23 .\api\cars\models\cars.py:54
+msgid "Год выпуска"
+msgstr ""
+
+#: .\api\cars\forms.py:54
+msgid "Время 'доступно с' должно быть раньше 'доступно до'."
+msgstr ""
+
+#: .\api\cars\models\carfleet.py:12
+msgid "автопарк"
+msgstr ""
+
+#: .\api\cars\models\carfleet.py:13
+msgid "Автопарки"
+msgstr ""
+
+#: .\api\cars\models\carfleet.py:15
+msgid "Название компании"
+msgstr ""
+
+#: .\api\cars\models\carfleet.py:18
+msgid "Номер телефона (+998)"
+msgstr ""
+
+#: .\api\cars\models\carfleet.py:24
+msgid "Пункт выдачи (location)"
+msgstr ""
+
+#: .\api\cars\models\carfleet.py:28
+#, python-format
+msgid "Автопарк: %(name)s"
+msgstr ""
+
+#: .\api\cars\models\cars.py:20
+msgid "машину"
+msgstr ""
+
+#: .\api\cars\models\cars.py:21
+msgid "Машины"
+msgstr ""
+
+#: .\api\cars\models\cars.py:28
+msgid "Автопарк"
+msgstr ""
+
+#: .\api\cars\models\cars.py:34
+msgid "Класс авто (стандарт/премиум)"
+msgstr ""
+
+#: .\api\cars\models\cars.py:37
+msgid "Марка"
+msgstr ""
+
+#: .\api\cars\models\cars.py:38
+msgid "Модель"
+msgstr ""
+
+#: .\api\cars\models\cars.py:43
+msgid "Цена за час"
+msgstr ""
+
+#: .\api\cars\models\cars.py:45
+msgid "Автоматическая коробка"
+msgstr ""
+
+#: .\api\cars\models\cars.py:50
+msgid "Тип двигателя"
+msgstr ""
+
+#: .\api\cars\models\cars.py:57
+msgid "Регистрационный номер"
+msgstr ""
+
+#: .\api\cars\models\cars.py:60
+msgid "Цвет"
+msgstr ""
+
+#: .\api\cars\models\cars.py:63
+msgid "Минимальный возраст водителя"
+msgstr ""
+
+#: .\api\cars\models\cars.py:66
+msgid "Добавлено"
+msgstr ""
+
+#: .\api\cars\models\cars.py:68
+msgid "Изменено"
+msgstr ""
+
+#: .\api\cars\models\cars.py:71
+msgid "Android Auto"
+msgstr ""
+
+#: .\api\cars\models\cars.py:74
+msgid "Apple CarPlay"
+msgstr ""
+
+#: .\api\cars\models\cars.py:77
+msgid "Детское кресло"
+msgstr ""
+
+#: .\api\cars\models\cars.py:79
+msgid "Bluetooth"
+msgstr ""
+
+#: .\api\cars\models\cars.py:80
+msgid "AUX"
+msgstr ""
+
+#: .\api\cars\models\cars.py:83 .\api\promo\models\coupon.py:15
+msgid "Описание"
+msgstr ""
+
+#: .\api\cars\models\cars.py:88
+msgid "Тип кузова (sedan, suv и т.д.)"
+msgstr ""
+
+#: .\api\cars\models\cars.py:91
+msgid "Поддерживает самовывоз"
+msgstr ""
+
+#: .\api\cars\models\cars.py:94
+msgid "Количество посадочных мест"
+msgstr ""
+
+#: .\api\cars\models\cars.py:96
+msgid "Имеет кондиционер"
+msgstr ""
+
+#: .\api\cars\models\cars.py:126
+#, python-format
+msgid "Автомобиль \"%(car)s\" в избранном у %(user)s"
+msgstr ""
+
+#: .\api\cars\serializers\serializers.py:78
+msgid "Можно загрузить максимум 4 изображения."
+msgstr ""
+
+#: .\api\cars\serializers\serializers.py:86
+msgid "Файл не является допустимым изображением."
+msgstr ""
+
+#: .\api\cars\serializers\serializers.py:137
+msgid "Это поле обязательно и должно быть True или False."
+msgstr ""
+
+#: .\api\cars\serializers\serializers.py:146
+msgid "Список содержит невалидные UUID."
+msgstr ""
+
+#: .\api\cars\services\favorites_service.py:14
+msgid "Авто уже в избранном."
+msgstr ""
+
+#: .\api\cars\services\favorites_service.py:16
+msgid "Авто добавлено в избранное."
+msgstr ""
+
+#: .\api\cars\services\favorites_service.py:25
+msgid "Авто удалено из избранного."
+msgstr ""
+
+#: .\api\cars\services\favorites_service.py:27
+msgid "Авто не найдено."
+msgstr ""
+
+#: .\api\cars\validators.py:12
+msgid "Год выпуска не может быть в будущем."
+msgstr ""
+
+#: .\api\cars\validators.py:25
+msgid "Номерной знак должен быть в формате: 01 N 951 LA"
+msgstr ""
+
+#: .\api\cars\validators.py:42
+msgid "Введите номер в формате +998901234567 или 901234567"
+msgstr ""
+
+#: .\api\cars\validators.py:47
+msgid "Номер телефона должен быть в формате +998XXXXXXXXX"
+msgstr ""
+
+#: .\api\driverlicenses\models\models.py:13
+#: .\api\driverlicenses\models\models.py:14
+msgid "Водительские права"
+msgstr ""
+
+#: .\api\driverlicenses\models\models.py:19
+msgid "Пользователь. Владелец прав"
+msgstr ""
+
+#: .\api\driverlicenses\models\models.py:25
+msgid "Фамилия (1)"
+msgstr ""
+
+#: .\api\driverlicenses\models\models.py:27
+msgid "Имя (2)"
+msgstr ""
+
+#: .\api\driverlicenses\models\models.py:29
+msgid "Дата рождения (3)"
+msgstr ""
+
+#: .\api\driverlicenses\models\models.py:32
+msgid "Дата получения (4a)"
+msgstr ""
+
+#: .\api\driverlicenses\models\models.py:35
+msgid "Срок действия (4b)"
+msgstr ""
+
+#: .\api\driverlicenses\models\models.py:38
+msgid "Имеет ли B категорию (9)"
+msgstr ""
+
+#: .\api\driverlicenses\models\models.py:41
+msgid "Серийный номер (10)"
+msgstr ""
+
+#: .\api\driverlicenses\models\models.py:49
+msgid "Фото прав"
+msgstr ""
+
+#: .\api\driverlicenses\models\models.py:56
+msgid "Фото прав сзади"
+msgstr ""
+
+#: .\api\driverlicenses\models\models.py:64
+msgid "Права"
+msgstr ""
+
+#: .\api\driverlicenses\views\create.py:37 .\api\passports\views\create.py:30
+msgid "У вас уже есть документ"
+msgstr ""
+
+#: .\api\locations\models\models.py:11
+msgid "Локация"
+msgstr ""
+
+#: .\api\locations\models\models.py:12
+msgid "Локации"
+msgstr ""
+
+#: .\api\notifications\models\models.py:12
+msgid "Оповещение (FCM)"
+msgstr ""
+
+#: .\api\notifications\models\models.py:13
+msgid "Оповещения (FCM)"
+msgstr ""
+
+#: .\api\notifications\models\models.py:27
+msgid "Устройство (FCM)"
+msgstr ""
+
+#: .\api\notifications\models\models.py:28
+msgid "Устройства (FCM)"
+msgstr ""
+
+#: .\api\passports\models\models.py:15
+msgid "Паспорта"
+msgstr ""
+
+#: .\api\passports\models\models.py:20
+msgid "Пользователь. Владелец паспорта"
+msgstr ""
+
+#: .\api\passports\models\models.py:26
+msgid "Является ли ID картой"
+msgstr ""
+
+#: .\api\passports\models\models.py:28 .\api\validate_uz\models.py:27
+msgid "Имя"
+msgstr ""
+
+#: .\api\passports\models\models.py:29 .\api\validate_uz\models.py:24
+msgid "Фамилия"
+msgstr ""
+
+#: .\api\passports\models\models.py:31 .\api\validate_uz\models.py:30
+msgid "Отчество"
+msgstr ""
+
+#: .\api\passports\models\models.py:34
+msgid "ПИНФЛ"
+msgstr ""
+
+#: .\api\passports\models\models.py:41 .\api\validate_uz\models.py:33
+msgid "Дата рождения"
+msgstr ""
+
+#: .\api\passports\models\models.py:44
+msgid "Серия и номер паспорта"
+msgstr ""
+
+#: .\api\passports\models\models.py:48
+msgid "Фото паспорта"
+msgstr ""
+
+#: .\api\passports\models\models.py:55
+msgid "Фото паспорта сзади (если ID карта)"
+msgstr ""
+
+#: .\api\passports\validators.py:10
+msgid "ПИНФЛ состоит из 14 цифр"
+msgstr ""
+
+#: .\api\payments\admin.py:53
+msgid "Сумма аренды"
+msgstr ""
+
+#: .\api\payments\admin.py:60
+msgid "Сумма залога"
+msgstr ""
+
+#: .\api\payments\admin.py:67
+msgid "Списать депозит для выделенных"
+msgstr ""
+
+#: .\api\payments\admin.py:82
+msgid "Вернуть депозит для выделенных"
+msgstr ""
+
+#: .\api\payments\models\models.py:11
+msgid "Card"
+msgstr ""
+
+#: .\api\payments\models\models.py:12
+msgid "Cash"
+msgstr ""
+
+#: .\api\payments\models\models.py:15
+msgid "Инициализирован"
+msgstr ""
+
+#: .\api\payments\models\models.py:16
+msgid "Ожидает"
+msgstr ""
+
+#: .\api\payments\models\models.py:17
+msgid "Успешно"
+msgstr ""
+
+#: .\api\payments\models\models.py:18
+msgid "Ошибка"
+msgstr ""
+
+#: .\api\payments\models\models.py:19 .\api\payments\models\models.py:25
+msgid "Отменён"
+msgstr ""
+
+#: .\api\payments\models\models.py:22
+msgid "Без холда"
+msgstr ""
+
+#: .\api\payments\models\models.py:23
+msgid "Авторизован"
+msgstr ""
+
+#: .\api\payments\models\models.py:24
+msgid "Списан"
+msgstr ""
+
+#: .\api\promo\models\coupon.py:10
+msgid "промокод"
+msgstr ""
+
+#: .\api\promo\models\coupon.py:11
+msgid "Промокоды"
+msgstr ""
+
+#: .\api\promo\models\coupon.py:13
+msgid "Промокод"
+msgstr ""
+
+#: .\api\promo\models\coupon.py:18
+msgid "Активен"
+msgstr ""
+
+#: .\api\promo\models\coupon.py:21
+msgid "% Скидки"
+msgstr ""
+
+#: .\api\promo\models\coupon.py:22
+msgid "Скидка только на аренду в процентах"
+msgstr ""
+
+#: .\api\promo\models\used_coupons.py:26
+msgid "Купон"
+msgstr ""
+
+#: .\api\promo\models\used_coupons.py:26
+msgid "использованный"
+msgstr ""
+
+#: .\api\promo\views\get_by_name.py:31
+msgid "Необходим параметр name"
+msgstr ""
+
+#: .\api\promo\views\get_by_name.py:36
+msgid "Промокод не найден"
+msgstr ""
+
+#: .\api\promo\views\get_by_name.py:39
+msgid "Промокод больше не активен"
+msgstr ""
+
+#: .\api\promo\views\get_by_name.py:42
+msgid "Вы уже использовали этот промокод"
+msgstr ""
+
+#: .\api\referral\models\model.py:14
+msgid "реферальная информация"
+msgstr ""
+
+#: .\api\referral\models\model.py:15
+msgid "Реферальная информация"
+msgstr ""
+
+#: .\api\referral\models\model.py:26
+msgid "Свой реферальный токен"
+msgstr ""
+
+#: .\api\referral\models\model.py:32
+msgid "Использованый реферальный токен"
+msgstr ""
+
+#: .\api\referral\models\model.py:36
+msgid "Текущий баланс реферальной скидки"
+msgstr ""
+
+#: .\api\referral\models\model.py:42 .\api\users\admin\admin.py:141
+msgid "Число приглашенных пользователей"
+msgstr ""
+
+#: .\api\referral\views\get_link.py:18
+msgid "Неудалось получить ссылку"
+msgstr ""
+
+#: .\api\users\admin\admin.py:20
+msgid "Добавить реферальные данные"
+msgstr ""
+
+#: .\api\users\admin\admin.py:30 .\api\users\admin\admin.py:136
+msgid "Количество бронирований"
+msgstr ""
+
+#: .\api\users\admin\admin.py:35
+msgid "0 бронирований"
+msgstr ""
+
+#: .\api\users\admin\admin.py:36
+msgid "Хотя бы 1 бронирование"
+msgstr ""
+
+#: .\api\users\admin\admin.py:125
+msgid "Аккаунт"
+msgstr ""
+
+#: .\api\users\admin\admin.py:129
+msgid "Статус верификации"
+msgstr ""
+
+#: .\api\users\admin\admin.py:148
+msgid "Реферальный баланс"
+msgstr ""
+
+#: .\api\users\models\manager.py:10
+msgid "У пользователя должен быть номер телефона"
+msgstr ""
+
+#: .\api\users\models\manager.py:27
+msgid "Суперпользователь должен иметь is_staff=True."
+msgstr ""
+
+#: .\api\users\models\manager.py:30
+msgid "Суперпользователь должен иметь is_superuser=True."
+msgstr ""
+
+#: .\api\users\models\roles.py:6
+msgid "Суперпользователь"
+msgstr ""
+
+#: .\api\users\models\user.py:27
+msgid "пользователя"
+msgstr ""
+
+#: .\api\users\models\user.py:28
+msgid "Пользователи"
+msgstr ""
+
+#: .\api\users\models\user.py:36
+msgid "Язык интерфейса"
+msgstr ""
+
+#: .\api\users\models\user.py:43
+msgid "Роль"
+msgstr ""
+
+#: .\api\users\models\user.py:49
+msgid "Номер телефона"
+msgstr ""
+
+#: .\api\users\models\user.py:68
+msgid "FCM токен устройства"
+msgstr ""
+
+#: .\api\users\models\user.py:70
+msgid "Имя по паспорту"
+msgstr ""
+
+#: .\api\users\models\user.py:71
+msgid "Фамилия по паспорту"
+msgstr ""
+
+#: .\api\users\models\user.py:74
+msgid "Возраст"
+msgstr ""
+
+#: .\api\users\models\user.py:81
+msgid "Фото профиля"
+msgstr ""
+
+#: .\api\users\serializers\fcm_serializer.py:7
+msgid "FCM токен мобильного клиента"
+msgstr ""
+
+#: .\api\users\validators.py:14 .\common\documents\validators.py:14
+msgid "Неверный формат файла. "
+msgstr ""
+
+#: .\api\users\views\fcm_view.py:15
+msgid "Сохраняет FCM токен пользователя"
+msgstr ""
+
+#: .\api\users\views\fcm_view.py:20
+msgid "Возвращает текущий FCM токен пользователя"
+msgstr ""
+
+#: .\api\users\views\fcm_view.py:30
+msgid "FCM токен сохранён"
+msgstr ""
+
+#: .\api\users\views\get_by_phone.py:18
+msgid "Существует ли renter с данным номером телефона"
+msgstr ""
+
+#: .\api\users\views\get_by_phone.py:27
+msgid "Необходим параметр phone"
+msgstr ""
+
+#: .\api\users\views\get_my.py:16
+msgid "Получить собственного пользователя по jwt"
+msgstr ""
+
+#: .\api\users\views\register.py:33
+msgid "[Superuser] Создать нового админа"
+msgstr ""
+
+#: .\api\users\views\register.py:53
+msgid "Пользователь с таким логином уже существует"
+msgstr ""
+
+#: .\api\validate_uz\models.py:18
+msgid "Паспорт (серия и номер)"
+msgstr ""
+
+#: .\api\validate_uz\models.py:21
+msgid "ФИО (полностью)"
+msgstr ""
+
+#: .\api\validate_uz\models.py:37
+msgid "Дата выдачи ВУ"
+msgstr ""
+
+#: .\api\validate_uz\models.py:40
+msgid "Срок действия ВУ до"
+msgstr ""
+
+#: .\api\validate_uz\models.py:43
+msgid "Кем выдано ВУ"
+msgstr ""
+
+#: .\api\validate_uz\models.py:46
+msgid "Серия и номер ВУ"
+msgstr ""
+
+#: .\api\validate_uz\models.py:49
+msgid "Категория ВУ"
+msgstr ""
+
+#: .\api\validate_uz\models.py:52
+msgid "Начало действия категории"
+msgstr ""
+
+#: .\api\validate_uz\models.py:55
+msgid "Окончание действия категории"
+msgstr ""
+
+#: .\api\validate_uz\models.py:59
+msgid "ID региона рождения"
+msgstr ""
+
+#: .\api\validate_uz\models.py:62
+msgid "ID города рождения"
+msgstr ""
+
+#: .\api\validate_uz\models.py:65
+msgid "Место рождения"
+msgstr ""
+
+#: .\api\validate_uz\models.py:68
+msgid "ID региона адреса проживания"
+msgstr ""
+
+#: .\api\validate_uz\models.py:71
+msgid "ID города адреса проживания"
+msgstr ""
+
+#: .\api\validate_uz\models.py:77
+msgid "Адрес проживания (улица, дом)"
+msgstr ""
+
+#: .\api\validate_uz\models.py:81
+msgid "Сумма долгов"
+msgstr ""
+
+#: .\api\validate_uz\models.py:85
+msgid "данные из validate.uz"
+msgstr ""
+
+#: .\api\validate_uz\models.py:86
+msgid "Данные из validate.uz"
+msgstr ""
+
+#: .\common\constants.py:12
+msgid "Доставка"
+msgstr ""
+
+#: .\common\constants.py:19
+msgid "Стандарт"
+msgstr ""
+
+#: .\common\constants.py:20
+msgid "Премиум"
+msgstr ""
+
+#: .\common\constants.py:25
+msgid "Электрическая"
+msgstr ""
+
+#: .\common\constants.py:26
+msgid "Бензиновая"
+msgstr ""
+
+#: .\common\constants.py:27
+msgid "Гибридная"
+msgstr ""
+
+#: .\common\constants.py:31
+msgid "Белый"
+msgstr ""
+
+#: .\common\constants.py:32
+msgid "Чёрный"
+msgstr ""
+
+#: .\common\constants.py:33
+msgid "Серебристый"
+msgstr ""
+
+#: .\common\constants.py:34
+msgid "Серый"
+msgstr ""
+
+#: .\common\constants.py:35
+msgid "Синий"
+msgstr ""
+
+#: .\common\constants.py:36
+msgid "Красный"
+msgstr ""
+
+#: .\common\constants.py:37
+msgid "Зелёный"
+msgstr ""
+
+#: .\common\constants.py:38
+msgid "Жёлтый"
+msgstr ""
+
+#: .\common\constants.py:39
+msgid "Коричневый"
+msgstr ""
+
+#: .\common\constants.py:40
+msgid "Оранжевый"
+msgstr ""
+
+#: .\common\constants.py:41
+msgid "Бежевый"
+msgstr ""
+
+#: .\common\constants.py:42
+msgid "Золотистый"
+msgstr ""
+
+#: .\common\constants.py:43
+msgid "Фиолетовый"
+msgstr ""
+
+#: .\common\constants.py:44
+msgid "Другой"
+msgstr ""
+
+#: .\common\constants.py:48
+msgid "Хэтчбек"
+msgstr ""
+
+#: .\common\constants.py:49
+msgid "Седан"
+msgstr ""
+
+#: .\common\constants.py:50
+msgid "Внедорожник"
+msgstr ""
+
+#: .\common\constants.py:51
+msgid "Минивэн"
+msgstr ""
+
+#: .\common\constants.py:52
+msgid "Купе"
+msgstr ""
+
+#: .\common\constants.py:53
+msgid "Кабриолет"
+msgstr ""
+
+#: .\common\constants.py:54
+msgid "Пикап"
+msgstr ""
+
+#: .\common\constants.py:93
+msgid "Карта"
+msgstr ""
+
+#: .\common\constants.py:94
+msgid "Наличные"
+msgstr ""
+
+#: .\common\documents\constants.py:10
+msgid "Ожидание авто проверки"
+msgstr ""
+
+#: .\common\documents\constants.py:11
+msgid "Авто проверка не выполнена"
+msgstr ""
+
+#: .\common\documents\constants.py:12
+msgid "Авто проверка успешна"
+msgstr ""
+
+#: .\common\documents\constants.py:13
+msgid "Подтверждено"
+msgstr ""
+
+#: .\common\documents\constants.py:14
+msgid "Отклонено"
+msgstr ""
+
+#: .\common\documents\models.py:16
+msgid "Состояние валидации"
+msgstr ""
+
+#: .\common\documents\serializers.py:43
+msgid "PDF файл содержит слишком много страниц"
+msgstr ""
+
+#: .\common\documents\serializers.py:46
+msgid "PDF файл пуст"
+msgstr ""
+
+#: .\common\documents\serializers.py:58
+msgid ""
+"Необходимо предоставить либо два фото (спереди и сзади в формате .png, .jpg) "
+"либо .pdf файл с двумя страницами"
+msgstr ""
+
+#: .\common\documents\services\scan_service\exeptions.py:5
+msgid "Ошибка чтения документа"
+msgstr ""
+
+#: .\common\validators.py:10
+msgid "Неверный номер"
+msgstr ""
+
+#: .\common\validators.py:16
+msgid "Код имеет некорректный формат"
+msgstr ""
+
+#: .\common\validators.py:22
+msgid "Цена должна быть больше нуля."
+msgstr ""
+
+#: .\core\settings.py:270
+msgid "Uzbek"
+msgstr ""
+
+#: .\core\settings.py:271
+msgid "Russian"
+msgstr ""
+
+#: .\core\settings.py:272
+msgid "English"
+msgstr ""
+
+#: .\firebase\notification.py:49
+msgid "Статус FCM:"
+msgstr ""
+
+#: .\firebase\notification.py:50
+msgid "Ответ FCM:"
+msgstr ""
+
+#: .\firebase\notification.py:57
+msgid "У пользователя нет FCM токена:"
+msgstr ""
+
+#: .\firebase\notification.py:66
+msgid "⛽ Напоминание о топливе"
+msgstr ""

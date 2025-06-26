@@ -1,0 +1,4544 @@
+openapi: 3.0.3
+info:
+  title: Moshin API
+  version: 1.0.0
+  description: Документация для API сервиса аренды автомобилей
+paths:
+  /ru/api/auth/login/admin/:
+    post:
+      operationId: ru_api_auth_login_admin_create
+      description: Вход в аккаунт
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CredentialRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CredentialRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CredentialRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+          description: ''
+  /ru/api/auth/login/renter/:
+    post:
+      operationId: ru_api_auth_login_renter_create
+      description: Вход в аккаунт
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PhoneAndCodeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PhoneAndCodeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PhoneAndCodeRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+          description: ''
+  /ru/api/auth/logout/:
+    post:
+      operationId: ru_api_auth_logout_create
+      description: |-
+        Takes a token and blacklists it. Must be used with the
+        `rest_framework_simplejwt.token_blacklist` app installed.
+      tags:
+      - ru
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenBlacklistRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenBlacklistRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenBlacklistRequest'
+        required: true
+      responses:
+        '200':
+          description: No response body
+  /ru/api/auth/token-refresh/:
+    post:
+      operationId: ru_api_auth_token_refresh_create
+      description: Обновить токены
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RefreshRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RefreshRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+          description: ''
+  /ru/api/auth/token-verify/:
+    post:
+      operationId: ru_api_auth_token_verify_create
+      description: |-
+        Takes a token and indicates if it is valid.  This view provides no
+        information about a token's fitness for a particular use.
+      tags:
+      - ru
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenVerifyRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenVerifyRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenVerifyRequest'
+        required: true
+      responses:
+        '200':
+          description: No response body
+  /ru/api/bookings/:
+    get:
+      operationId: ru_api_bookings_list
+      parameters:
+      - in: query
+        name: car
+        schema:
+          type: string
+      - in: query
+        name: date
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: fleet
+        schema:
+          type: string
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - in: query
+        name: status
+        schema:
+          type: string
+      - in: query
+        name: user
+        schema:
+          type: string
+      tags:
+      - booking
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBookingList'
+          description: ''
+    post:
+      operationId: ru_api_bookings_create
+      summary: '[renter] Забронировать'
+      tags:
+      - booking
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+          description: ''
+  /ru/api/bookings/{id}/:
+    get:
+      operationId: ru_api_bookings_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this заказ.
+        required: true
+      tags:
+      - booking
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+          description: ''
+    put:
+      operationId: ru_api_bookings_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this заказ.
+        required: true
+      tags:
+      - booking
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+          description: ''
+    patch:
+      operationId: ru_api_bookings_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this заказ.
+        required: true
+      tags:
+      - booking
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedBookingRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedBookingRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedBookingRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+          description: ''
+    delete:
+      operationId: ru_api_bookings_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this заказ.
+        required: true
+      tags:
+      - booking
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /ru/api/bookings/{id}/status/:
+    patch:
+      operationId: ru_api_bookings_status_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this заказ.
+        required: true
+      tags:
+      - booking
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedBookingRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedBookingRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedBookingRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+          description: ''
+  /ru/api/bookings/deposits/:
+    get:
+      operationId: ru_api_bookings_deposits_list
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - ru
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDepositList'
+          description: ''
+  /ru/api/bookings/deposits/{id}/:
+    get:
+      operationId: ru_api_bookings_deposits_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this депозит.
+        required: true
+      tags:
+      - ru
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deposit'
+          description: ''
+  /ru/api/bookings/details/:
+    post:
+      operationId: ru_api_bookings_details_create
+      description: Рассчитать rental_summary для заказа, не создавая заказ.
+      summary: '[renter] Получить детализацию стоимости заказа'
+      tags:
+      - booking
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingDetails'
+          description: ''
+  /ru/api/bookings/history/:
+    get:
+      operationId: ru_api_bookings_history_retrieve
+      tags:
+      - booking
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+          description: ''
+  /ru/api/bookings/my-bookings/:
+    get:
+      operationId: ru_api_bookings_my_bookings_retrieve
+      tags:
+      - booking
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+          description: ''
+  /ru/api/cars/:
+    get:
+      operationId: ru_api_cars_list
+      parameters:
+      - in: query
+        name: brand
+        schema:
+          type: string
+      - in: query
+        name: car_class
+        schema:
+          type: string
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - in: query
+        name: price_max
+        schema:
+          type: number
+      - in: query
+        name: price_min
+        schema:
+          type: number
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: year
+        schema:
+          type: integer
+      tags:
+      - ru
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCarsList'
+          description: ''
+    post:
+      operationId: ru_api_cars_create
+      tags:
+      - ru
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CarsRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CarsRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CarsRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cars'
+          description: ''
+  /ru/api/cars/{id}/:
+    get:
+      operationId: ru_api_cars_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this машину.
+        required: true
+      tags:
+      - ru
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cars'
+          description: ''
+    put:
+      operationId: ru_api_cars_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this машину.
+        required: true
+      tags:
+      - ru
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CarsRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CarsRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CarsRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cars'
+          description: ''
+    patch:
+      operationId: ru_api_cars_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this машину.
+        required: true
+      tags:
+      - ru
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCarsRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCarsRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCarsRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cars'
+          description: ''
+    delete:
+      operationId: ru_api_cars_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this машину.
+        required: true
+      tags:
+      - ru
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /ru/api/cars/{id}/favorite/:
+    post:
+      operationId: ru_api_cars_favorite_create
+      description: Добавление авто в избранное.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this машину.
+        required: true
+      tags:
+      - ru
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CarsRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CarsRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CarsRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cars'
+          description: ''
+    delete:
+      operationId: ru_api_cars_favorite_destroy
+      description: Удаление авто из избранного.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this машину.
+        required: true
+      tags:
+      - ru
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /ru/api/cars/brands/:
+    get:
+      operationId: ru_api_cars_brands_retrieve
+      tags:
+      - ru
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Brands'
+          description: ''
+  /ru/api/cars/favorites/:
+    get:
+      operationId: ru_api_cars_favorites_retrieve
+      description: Получение списка избранных авто текущего пользователя.
+      tags:
+      - ru
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cars'
+          description: ''
+  /ru/api/cars/rental-companies/:
+    get:
+      operationId: ru_api_cars_rental_companies_list
+      parameters:
+      - in: query
+        name: id
+        schema:
+          type: string
+          format: uuid
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: name
+        schema:
+          type: string
+      - in: query
+        name: owner_phone_number
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - ru
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCarFleetList'
+          description: ''
+    post:
+      operationId: ru_api_cars_rental_companies_create
+      tags:
+      - ru
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CarFleetRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CarFleetRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CarFleetRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarFleet'
+          description: ''
+  /ru/api/cars/rental-companies/{id}/:
+    get:
+      operationId: ru_api_cars_rental_companies_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this автопарк.
+        required: true
+      tags:
+      - ru
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarFleet'
+          description: ''
+    put:
+      operationId: ru_api_cars_rental_companies_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this автопарк.
+        required: true
+      tags:
+      - ru
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CarFleetRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CarFleetRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CarFleetRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarFleet'
+          description: ''
+    patch:
+      operationId: ru_api_cars_rental_companies_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this автопарк.
+        required: true
+      tags:
+      - ru
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCarFleetRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCarFleetRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCarFleetRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarFleet'
+          description: ''
+    delete:
+      operationId: ru_api_cars_rental_companies_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this автопарк.
+        required: true
+      tags:
+      - ru
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /ru/api/cars/years/:
+    get:
+      operationId: ru_api_cars_years_retrieve
+      tags:
+      - ru
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Years'
+          description: ''
+  /ru/api/coupons/:
+    get:
+      operationId: ru_api_coupons_list
+      parameters:
+      - in: query
+        name: active
+        schema:
+          type: boolean
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - promo-codes
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCouponList'
+          description: ''
+    post:
+      operationId: ru_api_coupons_create
+      tags:
+      - promo-codes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CouponRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CouponRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CouponRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Coupon'
+          description: ''
+  /ru/api/coupons/{id}/:
+    get:
+      operationId: ru_api_coupons_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this промокод.
+        required: true
+      tags:
+      - promo-codes
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Coupon'
+          description: ''
+    put:
+      operationId: ru_api_coupons_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this промокод.
+        required: true
+      tags:
+      - promo-codes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CouponRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CouponRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CouponRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Coupon'
+          description: ''
+    patch:
+      operationId: ru_api_coupons_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this промокод.
+        required: true
+      tags:
+      - promo-codes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCouponRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCouponRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCouponRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Coupon'
+          description: ''
+    delete:
+      operationId: ru_api_coupons_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this промокод.
+        required: true
+      tags:
+      - promo-codes
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /ru/api/coupons/check/:
+    get:
+      operationId: ru_api_coupons_check_retrieve
+      description: Вернет промомкод только если он активен и не был использован рентером,
+        который отправил запрос
+      summary: '[renter] Получить промокод по его имени'
+      parameters:
+      - in: query
+        name: name
+        schema:
+          type: string
+        required: true
+      tags:
+      - promo-codes
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Coupon'
+          description: ''
+  /ru/api/driverlicenses/:
+    get:
+      operationId: ru_api_driverlicenses_list
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - documents
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDriverLicenseBaseList'
+          description: ''
+    post:
+      operationId: ru_api_driverlicenses_create
+      description: На вход принимает либо две фотографии (.jpg .png) в два поля. Либо
+        один файл .pdf с двумя страницами
+      tags:
+      - documents
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DocumentTwoImageRequestRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverLicenseBase'
+          description: ''
+  /ru/api/driverlicenses/{id}/:
+    get:
+      operationId: ru_api_driverlicenses_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this Водительские права.
+        required: true
+      tags:
+      - documents
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverLicenseBase'
+          description: ''
+    put:
+      operationId: ru_api_driverlicenses_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this Водительские права.
+        required: true
+      tags:
+      - documents
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DriverLicenseBaseRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DriverLicenseBaseRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DriverLicenseBaseRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverLicenseBase'
+          description: ''
+    patch:
+      operationId: ru_api_driverlicenses_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this Водительские права.
+        required: true
+      tags:
+      - documents
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDriverLicenseBaseRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDriverLicenseBaseRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDriverLicenseBaseRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriverLicenseBase'
+          description: ''
+    delete:
+      operationId: ru_api_driverlicenses_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this Водительские права.
+        required: true
+      tags:
+      - documents
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /ru/api/locations/:
+    get:
+      operationId: ru_api_locations_list
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - ru
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedLocationList'
+          description: ''
+    post:
+      operationId: ru_api_locations_create
+      tags:
+      - ru
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LocationRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LocationRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+          description: ''
+  /ru/api/locations/{id}/:
+    get:
+      operationId: ru_api_locations_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this Локация.
+        required: true
+      tags:
+      - ru
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+          description: ''
+    put:
+      operationId: ru_api_locations_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this Локация.
+        required: true
+      tags:
+      - ru
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LocationRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LocationRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+          description: ''
+    patch:
+      operationId: ru_api_locations_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this Локация.
+        required: true
+      tags:
+      - ru
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedLocationRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedLocationRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedLocationRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+          description: ''
+    delete:
+      operationId: ru_api_locations_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this Локация.
+        required: true
+      tags:
+      - ru
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /ru/api/notifications/:
+    get:
+      operationId: ru_api_notifications_list
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - ru
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedNotificationList'
+          description: ''
+  /ru/api/notifications/{id}/:
+    get:
+      operationId: ru_api_notifications_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - ru
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification'
+          description: ''
+    put:
+      operationId: ru_api_notifications_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - ru
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/NotificationRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/NotificationRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification'
+          description: ''
+    patch:
+      operationId: ru_api_notifications_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - ru
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedNotificationRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedNotificationRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedNotificationRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification'
+          description: ''
+  /ru/api/passports/:
+    get:
+      operationId: ru_api_passports_list
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - documents
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPassportBaseList'
+          description: ''
+  /ru/api/passports/{id}/:
+    get:
+      operationId: ru_api_passports_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this Паспорт.
+        required: true
+      tags:
+      - documents
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PassportBase'
+          description: ''
+    put:
+      operationId: ru_api_passports_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this Паспорт.
+        required: true
+      tags:
+      - documents
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PassportBaseRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PassportBaseRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PassportBaseRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PassportBase'
+          description: ''
+    patch:
+      operationId: ru_api_passports_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this Паспорт.
+        required: true
+      tags:
+      - documents
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPassportBaseRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPassportBaseRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPassportBaseRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PassportBase'
+          description: ''
+    delete:
+      operationId: ru_api_passports_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this Паспорт.
+        required: true
+      tags:
+      - documents
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /ru/api/passports/new/:
+    post:
+      operationId: ru_api_passports_new_create
+      description: На вход принимает либо две фотографии (.jpg .png) в два поля. Либо
+        один файл .pdf с двумя страницами
+      tags:
+      - documents
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DocumentTwoImageRequestRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PassportBase'
+          description: ''
+  /ru/api/passports/old/:
+    post:
+      operationId: ru_api_passports_old_create
+      description: На вход принимает один файл в формате .png .pdf .jpg
+      tags:
+      - documents
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DocumentOneImageRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PassportBase'
+          description: ''
+  /ru/api/payments/:
+    get:
+      operationId: ru_api_payments_list
+      description: GET  /api/payments/
+      tags:
+      - Payments
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Payment'
+          description: ''
+  /ru/api/payments/{id}/:
+    get:
+      operationId: ru_api_payments_retrieve
+      description: GET  /api/payments/{pk}/
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Payments
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+          description: ''
+  /ru/api/payments/callback/:
+    post:
+      operationId: ru_api_payments_callback_create
+      description: POST /api/payments/callback/
+      tags:
+      - Payments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentCallbackRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PaymentCallbackRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PaymentCallbackRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: Callback response
+  /ru/api/payments/hold/{hold_id}/:
+    get:
+      operationId: ru_api_payments_hold_retrieve
+      description: GET/POST/DELETE /api/payments/hold/{hold_id}/
+      parameters:
+      - in: path
+        name: hold_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Payments
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: Детали/списание/отмена холда
+    post:
+      operationId: ru_api_payments_hold_create
+      description: GET/POST/DELETE /api/payments/hold/{hold_id}/
+      parameters:
+      - in: path
+        name: hold_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Payments
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: Детали/списание/отмена холда
+    delete:
+      operationId: ru_api_payments_hold_destroy
+      description: GET/POST/DELETE /api/payments/hold/{hold_id}/
+      parameters:
+      - in: path
+        name: hold_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Payments
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: Детали/списание/отмена холда
+  /ru/api/payments/hold/apply/{hold_id}/:
+    put:
+      operationId: ru_api_payments_hold_apply_update
+      description: PUT /api/payments/hold/apply/{hold_id}/
+      parameters:
+      - in: path
+        name: hold_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Payments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HoldApplyRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/HoldApplyRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/HoldApplyRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+          description: ''
+  /ru/api/payments/hold/create/:
+    post:
+      operationId: ru_api_payments_hold_create_create
+      description: POST /api/payments/hold/create/
+      tags:
+      - Payments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HoldCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/HoldCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/HoldCreateRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+          description: ''
+  /ru/api/payments/merchant/pay/apply-ofd/:
+    post:
+      operationId: ru_api_payments_merchant_pay_apply_ofd_create
+      description: POST /api/payments/merchant/pay/apply-ofd/
+      tags:
+      - Payments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplyOfdRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ApplyOfdRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ApplyOfdRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: Подтверждение платежа + OFD
+  /ru/api/payments/merchant/pay/create/:
+    post:
+      operationId: ru_api_payments_merchant_pay_create_create
+      description: POST /api/payments/merchant/pay/create/
+      tags:
+      - Payments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaleCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SaleCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SaleCreateRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+          description: ''
+  /ru/api/payments/merchant/pay/get/:
+    post:
+      operationId: ru_api_payments_merchant_pay_get_create
+      description: POST /api/payments/merchant/pay/get/
+      tags:
+      - Payments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetSaleRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GetSaleRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GetSaleRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: Информация по платежу
+  /ru/api/payments/merchant/pay/pre-apply/:
+    post:
+      operationId: ru_api_payments_merchant_pay_pre_apply_create
+      description: POST /api/payments/merchant/pay/pre-apply/
+      tags:
+      - Payments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PreApplyRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PreApplyRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PreApplyRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: Пред-подтверждение платежа
+  /ru/api/payments/merchant/pay/reverse/:
+    post:
+      operationId: ru_api_payments_merchant_pay_reverse_create
+      description: POST /api/payments/merchant/pay/reverse/
+      tags:
+      - Payments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReverseRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ReverseRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ReverseRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: Отмена платежа
+  /ru/api/payments/partner/bind-card/confirm/:
+    post:
+      operationId: ru_api_payments_partner_bind_card_confirm_create
+      description: POST /api/payments/partner/bind-card/confirm/
+      tags:
+      - Payments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BindCardConfirmRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BindCardConfirmRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BindCardConfirmRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BindCardConfirmResponse'
+          description: ''
+  /ru/api/payments/partner/bind-card/dial/:
+    put:
+      operationId: ru_api_payments_partner_bind_card_dial_update
+      description: PUT /api/payments/partner/bind-card/dial/
+      tags:
+      - Payments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BindCardDialRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BindCardDialRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BindCardDialRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BindCardDialResponse'
+          description: ''
+  /ru/api/payments/partner/bind-card/init/:
+    post:
+      operationId: ru_api_payments_partner_bind_card_init_create
+      description: POST /api/payments/partner/bind-card/init/
+      tags:
+      - Payments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BindCardInitRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BindCardInitRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BindCardInitRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BindCardInitResponse'
+          description: ''
+  /ru/api/payments/partner/list-cards/:
+    post:
+      operationId: ru_api_payments_partner_list_cards_create
+      description: POST /api/payments/partner/list-cards/
+      tags:
+      - Payments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListCardsRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ListCardsRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ListCardsRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCardsResponse'
+          description: ''
+  /ru/api/payments/partner/remove-card/:
+    post:
+      operationId: ru_api_payments_partner_remove_card_create
+      description: POST /api/payments/partner/remove-card/
+      tags:
+      - Payments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoveCardRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RemoveCardRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RemoveCardRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoveCardResponse'
+          description: ''
+  /ru/api/users/:
+    get:
+      operationId: ru_api_users_list
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - in: query
+        name: role
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedUserList'
+          description: ''
+  /ru/api/users/{id}/:
+    get:
+      operationId: ru_api_users_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this пользователя.
+        required: true
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    put:
+      operationId: ru_api_users_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this пользователя.
+        required: true
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    patch:
+      operationId: ru_api_users_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this пользователя.
+        required: true
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUserRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUserRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUserRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    delete:
+      operationId: ru_api_users_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Uuid
+        description: A UUID string identifying this пользователя.
+        required: true
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /ru/api/users/admin/:
+    post:
+      operationId: ru_api_users_admin_create
+      summary: '[Superuser] Создать нового админа'
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CredentialRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CredentialRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CredentialRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRegisterResponse'
+          description: ''
+  /ru/api/users/fcm-token/:
+    get:
+      operationId: ru_api_users_fcm_token_retrieve
+      description: Возвращает текущий FCM токен пользователя
+      tags:
+      - ru
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FCMToken'
+          description: ''
+    post:
+      operationId: ru_api_users_fcm_token_create
+      description: Сохраняет FCM токен пользователя
+      tags:
+      - ru
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FCMTokenRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FCMTokenRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FCMTokenRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /ru/api/users/is-registered/:
+    get:
+      operationId: ru_api_users_is_registered_retrieve
+      summary: Существует ли renter с данным номером телефона
+      parameters:
+      - in: query
+        name: phone
+        schema:
+          type: string
+        required: true
+      tags:
+      - auth
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          description: exists
+  /ru/api/users/renter/:
+    post:
+      operationId: ru_api_users_renter_create
+      summary: Регистрация для обычных пользователей (renter)
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegisterRequestRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserRegisterRequestRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserRegisterRequestRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRegisterResponse'
+          description: ''
+components:
+  schemas:
+    ApplyOfdRequest:
+      type: object
+      properties:
+        transaction_id:
+          type: integer
+        otp:
+          type: string
+          minLength: 1
+      required:
+      - otp
+      - transaction_id
+    BindCardConfirmRequest:
+      type: object
+      properties:
+        transaction_id:
+          type: integer
+        otp:
+          type: string
+          minLength: 1
+      required:
+      - otp
+      - transaction_id
+    BindCardConfirmResponse:
+      type: object
+      properties:
+        result:
+          type: object
+          additionalProperties: {}
+        data:
+          type: object
+          additionalProperties: {}
+      required:
+      - data
+      - result
+    BindCardDialRequest:
+      type: object
+      properties:
+        transaction_id:
+          type: integer
+      required:
+      - transaction_id
+    BindCardDialResponse:
+      type: object
+      properties:
+        result:
+          type: object
+          additionalProperties: {}
+      required:
+      - result
+    BindCardInitRequest:
+      type: object
+      properties:
+        card_number:
+          type: string
+          minLength: 1
+        expiry:
+          type: string
+          minLength: 1
+      required:
+      - card_number
+      - expiry
+    BindCardInitResponse:
+      type: object
+      properties:
+        result:
+          type: object
+          additionalProperties: {}
+        transaction_id:
+          type: integer
+        phone:
+          type: string
+      required:
+      - phone
+      - result
+      - transaction_id
+    Booking:
+      type: object
+      properties:
+        car:
+          type: string
+          format: uuid
+          title: Uuid
+        coupon:
+          type: string
+          format: uuid
+          title: Uuid
+          nullable: true
+        user:
+          allOf:
+          - $ref: '#/components/schemas/User'
+          readOnly: true
+        status:
+          allOf:
+          - $ref: '#/components/schemas/BookingStatusEnum'
+          readOnly: true
+        start_datetime:
+          type: string
+          format: date-time
+        end_datetime:
+          type: string
+          format: date-time
+        delivery_option:
+          allOf:
+          - $ref: '#/components/schemas/DeliveryOptionEnum'
+          title: Способ получения
+        delivery_latitude:
+          type: number
+          format: double
+          nullable: true
+        delivery_longitude:
+          type: number
+          format: double
+          nullable: true
+        agreed_to_terms:
+          type: boolean
+        rental_summary:
+          allOf:
+          - $ref: '#/components/schemas/BookingDetails'
+          readOnly: true
+          description: Детализированная сводка по стоимости аренды
+        fuel_level_reminder_message:
+          type: string
+          nullable: true
+          description: Текст напоминания о возврате топлива или null
+          readOnly: true
+        created_time:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_time:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - car
+      - created_time
+      - delivery_option
+      - end_datetime
+      - fuel_level_reminder_message
+      - rental_summary
+      - start_datetime
+      - status
+      - updated_time
+      - user
+    BookingDetails:
+      type: object
+      properties:
+        days:
+          type: integer
+        daily_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        rental_cost:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        deposit:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        delivery_cost:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        total_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        total_price_before_discount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+      required:
+      - daily_price
+      - days
+      - delivery_cost
+      - deposit
+      - rental_cost
+      - total_price
+      - total_price_before_discount
+    BookingDetailsRequest:
+      type: object
+      properties:
+        days:
+          type: integer
+        daily_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        rental_cost:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        deposit:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        delivery_cost:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        total_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        total_price_before_discount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+      required:
+      - daily_price
+      - days
+      - delivery_cost
+      - deposit
+      - rental_cost
+      - total_price
+      - total_price_before_discount
+    BookingRequest:
+      type: object
+      properties:
+        car:
+          type: string
+          format: uuid
+          title: Uuid
+        coupon:
+          type: string
+          format: uuid
+          title: Uuid
+          nullable: true
+        start_datetime:
+          type: string
+          format: date-time
+        end_datetime:
+          type: string
+          format: date-time
+        delivery_option:
+          allOf:
+          - $ref: '#/components/schemas/DeliveryOptionEnum'
+          title: Способ получения
+        delivery_latitude:
+          type: number
+          format: double
+          nullable: true
+        delivery_longitude:
+          type: number
+          format: double
+          nullable: true
+        agreed_to_terms:
+          type: boolean
+      required:
+      - car
+      - delivery_option
+      - end_datetime
+      - start_datetime
+    BookingStatusEnum:
+      enum:
+      - pending
+      - on_process
+      - on_delivery
+      - accepted
+      - finished
+      - cancelled
+      type: string
+      description: |-
+        * `pending` - Заказ получен, ожидает подтверждения
+        * `on_process` - Подготовка к передаче
+        * `on_delivery` - В пути, если выбрана доставка
+        * `accepted` - Автомобиль у пользователя
+        * `finished` - Аренда завершена
+        * `cancelled` - Отменено пользователем или администратором
+    Brands:
+      type: object
+      properties:
+        brands:
+          type: array
+          items:
+            type: string
+      required:
+      - brands
+    CarClassEnum:
+      enum:
+      - standard
+      - premium
+      type: string
+      description: |-
+        * `standard` - Стандарт
+        * `premium` - Премиум
+    CarFleet:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          title: Uuid
+        name:
+          type: string
+          title: Название компании
+          maxLength: 128
+        owner_phone_number:
+          type: string
+          title: Номер телефона (+998)
+          pattern: ^\+998(9[0-1]|9[3-5]|9[7-9]|33|55|77|88)[0-9]{7}$
+          maxLength: 20
+        location:
+          $ref: '#/components/schemas/Location'
+      required:
+      - id
+      - location
+      - name
+      - owner_phone_number
+    CarFleetRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Название компании
+          maxLength: 128
+        owner_phone_number:
+          type: string
+          minLength: 1
+          title: Номер телефона (+998)
+          pattern: ^\+998(9[0-1]|9[3-5]|9[7-9]|33|55|77|88)[0-9]{7}$
+          maxLength: 20
+        location:
+          $ref: '#/components/schemas/LocationRequest'
+      required:
+      - location
+      - name
+      - owner_phone_number
+    CarImage:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          title: Uuid
+        image:
+          type: string
+          format: uri
+      required:
+      - id
+      - image
+    CarImageRequest:
+      type: object
+      properties:
+        image:
+          type: string
+          format: binary
+      required:
+      - image
+    CarTypeEnum:
+      enum:
+      - hatchback
+      - sedan
+      - suv
+      - muv
+      - coupe
+      - convertible
+      - pickup
+      type: string
+      description: |-
+        * `hatchback` - Хэтчбек
+        * `sedan` - Седан
+        * `suv` - Внедорожник
+        * `muv` - Минивэн
+        * `coupe` - Купе
+        * `convertible` - Кабриолет
+        * `pickup` - Пикап
+    CardListItem:
+      type: object
+      properties:
+        card_id:
+          type: integer
+        card_token:
+          type: string
+        pan:
+          type: string
+        expiry:
+          type: string
+      required:
+      - card_id
+      - card_token
+      - expiry
+      - pan
+    Cars:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          title: Uuid
+        fleet:
+          type: string
+          format: uuid
+          title: Uuid
+        car_class:
+          allOf:
+          - $ref: '#/components/schemas/CarClassEnum'
+          title: Класс авто (стандарт/премиум)
+        brand:
+          type: string
+          title: Марка
+          maxLength: 100
+        model:
+          type: string
+          title: Модель
+          maxLength: 100
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        is_automatic:
+          type: boolean
+          nullable: true
+        year:
+          type: integer
+          maximum: 32767
+          minimum: 0
+          title: Год выпуска
+        license_plate:
+          type: string
+          title: Регистрационный номер
+          maxLength: 20
+        color:
+          allOf:
+          - $ref: '#/components/schemas/ColorEnum'
+          title: Цвет
+        color_display:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Добавлено
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Изменено
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/CarImage'
+          readOnly: true
+        android_auto:
+          type: boolean
+        apple_car_play:
+          type: boolean
+          title: Apple CarPlay
+        child_seat:
+          type: boolean
+          title: Детское кресло
+        bluetooth:
+          type: boolean
+        aux:
+          type: boolean
+        description:
+          type: string
+          nullable: true
+          title: Описание
+        car_type:
+          allOf:
+          - $ref: '#/components/schemas/CarTypeEnum'
+          title: Тип кузова (sedan, suv и т.д.)
+        supports_delivery:
+          type: boolean
+          title: Поддерживает доставку
+        engine_type:
+          allOf:
+          - $ref: '#/components/schemas/EngineTypeEnum'
+          title: Тип двигателя
+        seats:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          title: Количество посадочных мест
+        has_conditioner:
+          type: boolean
+          title: Имеет кондиционер
+        is_favorite:
+          type: string
+          readOnly: true
+      required:
+      - brand
+      - car_type
+      - color
+      - color_display
+      - created_at
+      - fleet
+      - has_conditioner
+      - id
+      - images
+      - is_automatic
+      - is_favorite
+      - license_plate
+      - model
+      - price
+      - seats
+      - updated_at
+      - year
+    CarsRequest:
+      type: object
+      properties:
+        fleet:
+          type: string
+          format: uuid
+          title: Uuid
+        car_class:
+          allOf:
+          - $ref: '#/components/schemas/CarClassEnum'
+          title: Класс авто (стандарт/премиум)
+        brand:
+          type: string
+          minLength: 1
+          title: Марка
+          maxLength: 100
+        model:
+          type: string
+          minLength: 1
+          title: Модель
+          maxLength: 100
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        is_automatic:
+          type: boolean
+          nullable: true
+        year:
+          type: integer
+          maximum: 32767
+          minimum: 0
+          title: Год выпуска
+        license_plate:
+          type: string
+          minLength: 1
+          title: Регистрационный номер
+          maxLength: 20
+        color:
+          allOf:
+          - $ref: '#/components/schemas/ColorEnum'
+          title: Цвет
+        uploaded_images:
+          type: array
+          items:
+            type: string
+            format: binary
+          writeOnly: true
+        android_auto:
+          type: boolean
+        apple_car_play:
+          type: boolean
+          title: Apple CarPlay
+        child_seat:
+          type: boolean
+          title: Детское кресло
+        bluetooth:
+          type: boolean
+        aux:
+          type: boolean
+        description:
+          type: string
+          nullable: true
+          title: Описание
+        car_type:
+          allOf:
+          - $ref: '#/components/schemas/CarTypeEnum'
+          title: Тип кузова (sedan, suv и т.д.)
+        supports_delivery:
+          type: boolean
+          title: Поддерживает доставку
+        engine_type:
+          allOf:
+          - $ref: '#/components/schemas/EngineTypeEnum'
+          title: Тип двигателя
+        seats:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          title: Количество посадочных мест
+        has_conditioner:
+          type: boolean
+          title: Имеет кондиционер
+      required:
+      - brand
+      - car_type
+      - color
+      - fleet
+      - has_conditioner
+      - is_automatic
+      - license_plate
+      - model
+      - price
+      - seats
+      - year
+    ColorEnum:
+      enum:
+      - white
+      - black
+      - silver
+      - gray
+      - blue
+      - red
+      - green
+      - yellow
+      - brown
+      - orange
+      - beige
+      - gold
+      - purple
+      - other
+      type: string
+      description: |-
+        * `white` - Белый
+        * `black` - Чёрный
+        * `silver` - Серебристый
+        * `gray` - Серый
+        * `blue` - Синий
+        * `red` - Красный
+        * `green` - Зелёный
+        * `yellow` - Жёлтый
+        * `brown` - Коричневый
+        * `orange` - Оранжевый
+        * `beige` - Бежевый
+        * `gold` - Золотистый
+        * `purple` - Фиолетовый
+        * `other` - Другой
+    Coupon:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          title: Uuid
+        name:
+          type: string
+          title: Промокод
+        description:
+          type: string
+          title: Описание
+        active:
+          type: boolean
+          title: Активен
+        rental_cost_discount:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: '% Скидки'
+          description: Скидка только на аренду в процентах
+      required:
+      - description
+      - id
+      - name
+    CouponRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Промокод
+        description:
+          type: string
+          minLength: 1
+          title: Описание
+        active:
+          type: boolean
+          title: Активен
+        rental_cost_discount:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: '% Скидки'
+          description: Скидка только на аренду в процентах
+      required:
+      - description
+      - name
+    CredentialRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+          minLength: 1
+        password:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - password
+      - username
+    DeliveryOptionEnum:
+      enum:
+      - pickup
+      - delivery
+      type: string
+      description: |-
+        * `pickup` - Самовывоз
+        * `delivery` - Доставка
+    Deposit:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          title: Uuid
+        user:
+          type: string
+          format: uuid
+          title: Пользователь
+          nullable: true
+        deposit:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+          title: Сумма депозита
+        created_time:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_time
+      - id
+    DocumentOneImageRequest:
+      type: object
+      properties:
+        image_file:
+          type: string
+          format: binary
+      required:
+      - image_file
+    DocumentTwoImageRequestRequest:
+      type: object
+      properties:
+        image_file:
+          type: string
+          format: binary
+        image_file_back:
+          type: string
+          format: binary
+      required:
+      - image_file
+    DriverLicenseBase:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          title: Uuid
+        user:
+          type: string
+          format: uuid
+          title: Пользователь. Владелец прав
+          readOnly: true
+        surname:
+          type: string
+          nullable: true
+          title: Фамилия (1)
+        name:
+          type: string
+          nullable: true
+          title: Имя (2)
+        date_of_birth:
+          type: string
+          format: date
+          nullable: true
+          title: Дата рождения (3)
+        serial_number:
+          type: string
+          nullable: true
+          title: Серийный номер (10)
+        acquire_date:
+          type: string
+          format: date
+          nullable: true
+          title: Дата получения (4a)
+        validity_period:
+          type: string
+          nullable: true
+          title: Срок действия (4b)
+        has_b_category:
+          type: boolean
+          nullable: true
+          title: Имеет ли B категорию (9)
+        image_file:
+          type: string
+          format: uri
+          readOnly: true
+          title: Фото прав
+        image_file_back:
+          type: string
+          format: uri
+          readOnly: true
+          title: Фото прав сзади
+        created_time:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_time:
+          type: string
+          format: date-time
+          readOnly: true
+        validation_status:
+          allOf:
+          - $ref: '#/components/schemas/ValidationStatusEnum'
+          title: Состояние валидации
+      required:
+      - created_time
+      - id
+      - image_file
+      - image_file_back
+      - updated_time
+      - user
+    DriverLicenseBaseRequest:
+      type: object
+      properties:
+        surname:
+          type: string
+          nullable: true
+          title: Фамилия (1)
+        name:
+          type: string
+          nullable: true
+          title: Имя (2)
+        date_of_birth:
+          type: string
+          format: date
+          nullable: true
+          title: Дата рождения (3)
+        serial_number:
+          type: string
+          nullable: true
+          title: Серийный номер (10)
+        acquire_date:
+          type: string
+          format: date
+          nullable: true
+          title: Дата получения (4a)
+        validity_period:
+          type: string
+          nullable: true
+          title: Срок действия (4b)
+        has_b_category:
+          type: boolean
+          nullable: true
+          title: Имеет ли B категорию (9)
+        validation_status:
+          allOf:
+          - $ref: '#/components/schemas/ValidationStatusEnum'
+          title: Состояние валидации
+    EngineTypeEnum:
+      enum:
+      - electric
+      - gasoline
+      - hybrid
+      type: string
+      description: |-
+        * `electric` - Электрическая
+        * `gasoline` - Бензиновая
+        * `hybrid` - Гибридная
+    FCMToken:
+      type: object
+      properties:
+        device_token:
+          type: string
+          description: FCM токен мобильного клиента
+      required:
+      - device_token
+    FCMTokenRequest:
+      type: object
+      properties:
+        device_token:
+          type: string
+          minLength: 1
+          description: FCM токен мобильного клиента
+      required:
+      - device_token
+    GetSaleRequest:
+      type: object
+      properties:
+        transaction_id:
+          type: integer
+      required:
+      - transaction_id
+    HoldApplyRequest:
+      type: object
+      properties:
+        otp:
+          type: string
+          minLength: 1
+      required:
+      - otp
+    HoldCreateRequest:
+      type: object
+      properties:
+        booking_id:
+          type: string
+          format: uuid
+        card_token:
+          type: string
+        card_number:
+          type: string
+        card_expiry:
+          type: string
+        payment_details:
+          type: string
+      required:
+      - booking_id
+    HoldStatusEnum:
+      enum:
+      - NONE
+      - AUTHORIZED
+      - CAPTURED
+      - RELEASED
+      type: string
+      description: |-
+        * `NONE` - Без холда
+        * `AUTHORIZED` - Авторизован
+        * `CAPTURED` - Списан
+        * `RELEASED` - Отменён
+    LangEnum:
+      enum:
+      - uz
+      - ru
+      - en
+      type: string
+      description: |-
+        * `uz` - uz
+        * `ru` - ru
+        * `en` - en
+    ListCardsRequest:
+      type: object
+      properties:
+        page:
+          type: integer
+          default: 1
+        page_size:
+          type: integer
+          default: 10
+    ListCardsResponse:
+      type: object
+      properties:
+        result:
+          type: object
+          additionalProperties: {}
+        card_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/CardListItem'
+      required:
+      - card_list
+      - result
+    Location:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          title: Uuid
+        created_time:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_time:
+          type: string
+          format: date-time
+          readOnly: true
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        address:
+          type: string
+          nullable: true
+          maxLength: 255
+      required:
+      - created_time
+      - id
+      - latitude
+      - longitude
+      - updated_time
+    LocationRequest:
+      type: object
+      properties:
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        address:
+          type: string
+          nullable: true
+          maxLength: 255
+      required:
+      - latitude
+      - longitude
+    LoginResponse:
+      type: object
+      properties:
+        access:
+          type: string
+        refresh:
+          type: string
+        user_id:
+          type: string
+          format: uuid
+      required:
+      - access
+      - refresh
+      - user_id
+    MethodEnum:
+      enum:
+      - CARD
+      - CASH
+      type: string
+      description: |-
+        * `CARD` - Карта
+        * `CASH` - Наличные
+    Notification:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          title: Uuid
+        created_time:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_time:
+          type: string
+          format: date-time
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+        message:
+          type: string
+          readOnly: true
+        payload:
+          readOnly: true
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        is_read:
+          type: boolean
+        user:
+          type: string
+          format: uuid
+          title: Uuid
+          readOnly: true
+        booking:
+          type: string
+          format: uuid
+          title: Uuid
+      required:
+      - booking
+      - created_at
+      - created_time
+      - id
+      - message
+      - payload
+      - type
+      - updated_time
+      - user
+    NotificationRequest:
+      type: object
+      properties:
+        is_read:
+          type: boolean
+        booking:
+          type: string
+          format: uuid
+          title: Uuid
+      required:
+      - booking
+    PaginatedBookingList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Booking'
+    PaginatedCarFleetList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/CarFleet'
+    PaginatedCarsList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Cars'
+    PaginatedCouponList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coupon'
+    PaginatedDepositList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Deposit'
+    PaginatedDriverLicenseBaseList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/DriverLicenseBase'
+    PaginatedLocationList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
+    PaginatedNotificationList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notification'
+    PaginatedPassportBaseList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PassportBase'
+    PaginatedUserList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    PassportBase:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          title: Uuid
+        user:
+          type: string
+          format: uuid
+          title: Пользователь. Владелец паспорта
+          readOnly: true
+        is_id_card:
+          type: boolean
+          title: Является ли ID картой
+        validation_status:
+          allOf:
+          - $ref: '#/components/schemas/ValidationStatusEnum'
+          title: Состояние валидации
+        name:
+          type: string
+          nullable: true
+          title: Имя
+        surname:
+          type: string
+          nullable: true
+          title: Фамилия
+        middlename:
+          type: string
+          nullable: true
+          title: Отчество
+        pinfl:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+          nullable: true
+          title: ПИНФЛ
+        date_of_birth:
+          type: string
+          format: date
+          nullable: true
+          title: Дата рождения
+        serial_and_number:
+          type: string
+          nullable: true
+          title: Серия и номер паспорта
+        image_file:
+          type: string
+          format: uri
+          readOnly: true
+          title: Фото паспорта
+        image_file_back:
+          type: string
+          format: uri
+          readOnly: true
+          nullable: true
+          title: Фото паспорта сзади (если ID карта)
+        created_time:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_time:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_time
+      - id
+      - image_file
+      - image_file_back
+      - updated_time
+      - user
+    PassportBaseRequest:
+      type: object
+      properties:
+        is_id_card:
+          type: boolean
+          title: Является ли ID картой
+        validation_status:
+          allOf:
+          - $ref: '#/components/schemas/ValidationStatusEnum'
+          title: Состояние валидации
+        name:
+          type: string
+          nullable: true
+          minLength: 1
+          title: Имя
+        surname:
+          type: string
+          nullable: true
+          minLength: 1
+          title: Фамилия
+        middlename:
+          type: string
+          nullable: true
+          title: Отчество
+        pinfl:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+          nullable: true
+          title: ПИНФЛ
+        date_of_birth:
+          type: string
+          format: date
+          nullable: true
+          title: Дата рождения
+        serial_and_number:
+          type: string
+          nullable: true
+          title: Серия и номер паспорта
+    PatchedBookingRequest:
+      type: object
+      properties:
+        car:
+          type: string
+          format: uuid
+          title: Uuid
+        coupon:
+          type: string
+          format: uuid
+          title: Uuid
+          nullable: true
+        start_datetime:
+          type: string
+          format: date-time
+        end_datetime:
+          type: string
+          format: date-time
+        delivery_option:
+          allOf:
+          - $ref: '#/components/schemas/DeliveryOptionEnum'
+          title: Способ получения
+        delivery_latitude:
+          type: number
+          format: double
+          nullable: true
+        delivery_longitude:
+          type: number
+          format: double
+          nullable: true
+        agreed_to_terms:
+          type: boolean
+    PatchedCarFleetRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Название компании
+          maxLength: 128
+        owner_phone_number:
+          type: string
+          minLength: 1
+          title: Номер телефона (+998)
+          pattern: ^\+998(9[0-1]|9[3-5]|9[7-9]|33|55|77|88)[0-9]{7}$
+          maxLength: 20
+        location:
+          $ref: '#/components/schemas/LocationRequest'
+    PatchedCarsRequest:
+      type: object
+      properties:
+        fleet:
+          type: string
+          format: uuid
+          title: Uuid
+        car_class:
+          allOf:
+          - $ref: '#/components/schemas/CarClassEnum'
+          title: Класс авто (стандарт/премиум)
+        brand:
+          type: string
+          minLength: 1
+          title: Марка
+          maxLength: 100
+        model:
+          type: string
+          minLength: 1
+          title: Модель
+          maxLength: 100
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        is_automatic:
+          type: boolean
+          nullable: true
+        year:
+          type: integer
+          maximum: 32767
+          minimum: 0
+          title: Год выпуска
+        license_plate:
+          type: string
+          minLength: 1
+          title: Регистрационный номер
+          maxLength: 20
+        color:
+          allOf:
+          - $ref: '#/components/schemas/ColorEnum'
+          title: Цвет
+        uploaded_images:
+          type: array
+          items:
+            type: string
+            format: binary
+          writeOnly: true
+        android_auto:
+          type: boolean
+        apple_car_play:
+          type: boolean
+          title: Apple CarPlay
+        child_seat:
+          type: boolean
+          title: Детское кресло
+        bluetooth:
+          type: boolean
+        aux:
+          type: boolean
+        description:
+          type: string
+          nullable: true
+          title: Описание
+        car_type:
+          allOf:
+          - $ref: '#/components/schemas/CarTypeEnum'
+          title: Тип кузова (sedan, suv и т.д.)
+        supports_delivery:
+          type: boolean
+          title: Поддерживает доставку
+        engine_type:
+          allOf:
+          - $ref: '#/components/schemas/EngineTypeEnum'
+          title: Тип двигателя
+        seats:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          title: Количество посадочных мест
+        has_conditioner:
+          type: boolean
+          title: Имеет кондиционер
+    PatchedCouponRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Промокод
+        description:
+          type: string
+          minLength: 1
+          title: Описание
+        active:
+          type: boolean
+          title: Активен
+        rental_cost_discount:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: '% Скидки'
+          description: Скидка только на аренду в процентах
+    PatchedDriverLicenseBaseRequest:
+      type: object
+      properties:
+        surname:
+          type: string
+          nullable: true
+          title: Фамилия (1)
+        name:
+          type: string
+          nullable: true
+          title: Имя (2)
+        date_of_birth:
+          type: string
+          format: date
+          nullable: true
+          title: Дата рождения (3)
+        serial_number:
+          type: string
+          nullable: true
+          title: Серийный номер (10)
+        acquire_date:
+          type: string
+          format: date
+          nullable: true
+          title: Дата получения (4a)
+        validity_period:
+          type: string
+          nullable: true
+          title: Срок действия (4b)
+        has_b_category:
+          type: boolean
+          nullable: true
+          title: Имеет ли B категорию (9)
+        validation_status:
+          allOf:
+          - $ref: '#/components/schemas/ValidationStatusEnum'
+          title: Состояние валидации
+    PatchedLocationRequest:
+      type: object
+      properties:
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        address:
+          type: string
+          nullable: true
+          maxLength: 255
+    PatchedNotificationRequest:
+      type: object
+      properties:
+        is_read:
+          type: boolean
+        booking:
+          type: string
+          format: uuid
+          title: Uuid
+    PatchedPassportBaseRequest:
+      type: object
+      properties:
+        is_id_card:
+          type: boolean
+          title: Является ли ID картой
+        validation_status:
+          allOf:
+          - $ref: '#/components/schemas/ValidationStatusEnum'
+          title: Состояние валидации
+        name:
+          type: string
+          nullable: true
+          minLength: 1
+          title: Имя
+        surname:
+          type: string
+          nullable: true
+          minLength: 1
+          title: Фамилия
+        middlename:
+          type: string
+          nullable: true
+          title: Отчество
+        pinfl:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+          nullable: true
+          title: ПИНФЛ
+        date_of_birth:
+          type: string
+          format: date
+          nullable: true
+          title: Дата рождения
+        serial_and_number:
+          type: string
+          nullable: true
+          title: Серия и номер паспорта
+    PatchedUserRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+          title: Имя по паспорту
+        surname:
+          type: string
+          nullable: true
+          title: Фамилия по паспорту
+        username:
+          type: string
+          nullable: true
+          title: Имя пользователя
+          maxLength: 150
+        date_of_birth:
+          type: string
+          format: date
+          nullable: true
+          title: Дата рождения
+    Payment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          title: Uuid
+        created_time:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_time:
+          type: string
+          format: date-time
+          readOnly: true
+        method:
+          $ref: '#/components/schemas/MethodEnum'
+        status:
+          $ref: '#/components/schemas/PaymentStatusEnum'
+        sale_transaction_id:
+          type: integer
+          readOnly: true
+          nullable: true
+        sale_success_id:
+          type: integer
+          readOnly: true
+          nullable: true
+        sale_amount:
+          type: integer
+          readOnly: true
+          nullable: true
+        hold_transaction_id:
+          type: integer
+          readOnly: true
+          nullable: true
+        hold_success_id:
+          type: integer
+          readOnly: true
+          nullable: true
+        deposit_amount:
+          type: integer
+          readOnly: true
+          nullable: true
+        hold_status:
+          allOf:
+          - $ref: '#/components/schemas/HoldStatusEnum'
+          readOnly: true
+        hold_release_date:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        atm_invoice:
+          type: string
+          readOnly: true
+          nullable: true
+        request_sign:
+          type: string
+          readOnly: true
+          nullable: true
+        card_transaction_id:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+          nullable: true
+        card_id:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+          nullable: true
+        card_token:
+          type: string
+          nullable: true
+          maxLength: 255
+        pan:
+          type: string
+          nullable: true
+          maxLength: 20
+        expiry:
+          type: string
+          nullable: true
+          maxLength: 4
+        card_holder:
+          type: string
+          nullable: true
+          maxLength: 100
+        card_balance:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+          nullable: true
+        card_phone:
+          type: string
+          nullable: true
+          maxLength: 20
+        keep_deposit:
+          type: boolean
+        booking:
+          type: string
+          format: uuid
+          title: Uuid
+      required:
+      - atm_invoice
+      - booking
+      - created_time
+      - deposit_amount
+      - hold_release_date
+      - hold_status
+      - hold_success_id
+      - hold_transaction_id
+      - id
+      - method
+      - request_sign
+      - sale_amount
+      - sale_success_id
+      - sale_transaction_id
+      - updated_time
+    PaymentCallbackRequest:
+      type: object
+      properties:
+        store_id:
+          type: string
+          minLength: 1
+        transaction_id:
+          type: integer
+        transaction_time:
+          type: string
+          format: date-time
+        amount:
+          type: string
+          minLength: 1
+        invoice:
+          type: string
+          minLength: 1
+        sign:
+          type: string
+          minLength: 1
+      required:
+      - amount
+      - invoice
+      - sign
+      - store_id
+      - transaction_id
+      - transaction_time
+    PaymentStatusEnum:
+      enum:
+      - INITIATED
+      - PENDING
+      - SUCCESS
+      - FAILED
+      - CANCELLED
+      type: string
+      description: |-
+        * `INITIATED` - Инициализирован
+        * `PENDING` - Ожидает
+        * `SUCCESS` - Успешно
+        * `FAILED` - Ошибка
+        * `CANCELLED` - Отменён
+    PhoneAndCodeRequest:
+      type: object
+      properties:
+        phone:
+          type: string
+          writeOnly: true
+          minLength: 1
+          pattern: ^\+998(9[0-1]|9[3-5]|9[7-9]|33|55|77|88)[0-9]{7}$
+        verification_code:
+          type: string
+          writeOnly: true
+          minLength: 1
+          description: Опционально. Код верификации из смс
+          pattern: ^\d{6}$
+        TEMP_disable_eskiz:
+          type: boolean
+          default: true
+      required:
+      - phone
+    PreApplyRequest:
+      type: object
+      description: |-
+        Для второго этапа – пред-подтверждения (/merchant/pay/pre-apply):
+        нужно либо card_token, либо card_number+expiry.
+      properties:
+        transaction_id:
+          type: integer
+        card_token:
+          type: string
+        card_number:
+          type: string
+        expiry:
+          type: string
+      required:
+      - transaction_id
+    RefreshRequest:
+      type: object
+      properties:
+        refresh:
+          type: string
+          minLength: 1
+      required:
+      - refresh
+    RemoveCardRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+        token:
+          type: string
+          minLength: 1
+      required:
+      - id
+      - token
+    RemoveCardResponse:
+      type: object
+      properties:
+        result:
+          type: object
+          additionalProperties: {}
+        data:
+          type: object
+          additionalProperties: {}
+      required:
+      - data
+      - result
+    ReverseRequest:
+      type: object
+      properties:
+        transaction_id:
+          type: integer
+        reason:
+          type: string
+          minLength: 1
+        hold_amount:
+          type: integer
+      required:
+      - transaction_id
+    RoleEnum:
+      enum:
+      - renter
+      - admin
+      - superuser
+      type: string
+      description: |-
+        * `renter` - Пользователь
+        * `admin` - Администратор
+        * `superuser` - Суперпользователь
+    SaleCreateRequest:
+      type: object
+      description: |-
+        Для первого этапа – создания транзакции (/merchant/pay/create):
+        достаточно booking_id, method, необязательные lang и terminal_id.
+        Никаких полей карты тут не должно быть и валиироваться они не будут.
+      properties:
+        booking_id:
+          type: string
+          format: uuid
+        method:
+          $ref: '#/components/schemas/MethodEnum'
+        lang:
+          allOf:
+          - $ref: '#/components/schemas/LangEnum'
+          default: ru
+        terminal_id:
+          type: string
+      required:
+      - booking_id
+      - method
+    TokenBlacklistRequest:
+      type: object
+      properties:
+        refresh:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - refresh
+    TokenVerifyRequest:
+      type: object
+      properties:
+        token:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - token
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          title: Uuid
+        role:
+          allOf:
+          - $ref: '#/components/schemas/RoleEnum'
+          readOnly: true
+          title: Роль
+        name:
+          type: string
+          nullable: true
+          title: Имя по паспорту
+        surname:
+          type: string
+          nullable: true
+          title: Фамилия по паспорту
+        username:
+          type: string
+          nullable: true
+          title: Имя пользователя
+          maxLength: 150
+        date_of_birth:
+          type: string
+          format: date
+          nullable: true
+          title: Дата рождения
+        phone:
+          type: string
+          readOnly: true
+          nullable: true
+          title: Номер телефона
+        validation_status:
+          type: string
+          readOnly: true
+        booking_count:
+          type: integer
+          readOnly: true
+        age:
+          type: integer
+          readOnly: true
+        driverlicense:
+          allOf:
+          - $ref: '#/components/schemas/DriverLicenseBase'
+          readOnly: true
+        passport:
+          allOf:
+          - $ref: '#/components/schemas/PassportBase'
+          readOnly: true
+      required:
+      - age
+      - booking_count
+      - driverlicense
+      - id
+      - passport
+      - phone
+      - role
+      - validation_status
+    UserRegisterRequestRequest:
+      type: object
+      properties:
+        phone:
+          type: string
+          writeOnly: true
+          minLength: 1
+          pattern: ^\+998(9[0-1]|9[3-5]|9[7-9]|33|55|77|88)[0-9]{7}$
+        verification_code:
+          type: string
+          writeOnly: true
+          minLength: 1
+          description: Опционально. Код верификации из смс
+          pattern: ^\d{6}$
+        TEMP_disable_eskiz:
+          type: boolean
+          default: true
+        auto_login:
+          type: boolean
+          default: true
+        name:
+          type: string
+          minLength: 1
+          pattern: ([A-Z][a-z]*)|([\u0410-\u042f][\u0430-\u044f]*)
+        surname:
+          type: string
+          minLength: 1
+          pattern: ([A-Z][a-z]*)|([\u0410-\u042f][\u0430-\u044f]*)
+        date_of_birth:
+          type: string
+          format: date
+      required:
+      - date_of_birth
+      - name
+      - phone
+      - surname
+    UserRegisterResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          title: Uuid
+        role:
+          allOf:
+          - $ref: '#/components/schemas/RoleEnum'
+          title: Роль
+      required:
+      - id
+    UserRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+          title: Имя по паспорту
+        surname:
+          type: string
+          nullable: true
+          title: Фамилия по паспорту
+        username:
+          type: string
+          nullable: true
+          title: Имя пользователя
+          maxLength: 150
+        date_of_birth:
+          type: string
+          format: date
+          nullable: true
+          title: Дата рождения
+    ValidationStatusEnum:
+      enum:
+      - pending
+      - extract_failed
+      - extract_verified
+      - approved
+      - rejected
+      type: string
+      description: |-
+        * `pending` - Ожидание авто проверки
+        * `extract_failed` - Авто проверка не выполнена
+        * `extract_verified` - Авто проверка успешна
+        * `approved` - Подтверждено
+        * `rejected` - Отклонено
+    Years:
+      type: object
+      properties:
+        years:
+          type: array
+          items:
+            type: integer
+      required:
+      - years
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

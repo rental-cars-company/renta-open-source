@@ -1,0 +1,44 @@
+FROM python:3.12-alpine
+
+WORKDIR /moshin_backend
+
+# Copy only updated code (assuming poetry deps are already installed in base)
+COPY moshin_backend/ .
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+ENV CRYPTOGRAPHY_DONT_BUILD_RUST=1
+
+RUN apk add --no-cache \
+     gcc \
+     g++ \
+     cmake \
+     make \
+     ninja \
+     musl-dev \
+     linux-headers \
+     libffi-dev \
+     openssl-dev \
+     cargo \
+     binutils \
+     proj-dev \
+     gdal \
+     gdal-dev \
+     geos \
+     geos-dev \
+     icu-dev \
+     gettext \
+     gettext-dev \
+     tesseract-ocr
+
+
+# If requirements might change, uncomment the next lines to check/install
+COPY pyproject.toml poetry.lock ./
+
+RUN pip install poetry==2.1.2
+
+RUN poetry install --only main --no-root
+
+RUN apk --no-cache add glib-dev poppler-glib vips-dev vips-tools poppler-utils ffmpeg
+
+EXPOSE 8000
